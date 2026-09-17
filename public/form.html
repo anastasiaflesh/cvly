@@ -1,0 +1,5796 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CVly — Створення резюме</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(255,255,255,0.07),
+            transparent 35%
+        ),
+        #050505;
+
+    color: #f5f5f5;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   ОСНОВНИЙ КОНТЕЙНЕР
+========================= */
+
+.container {
+    width: min(700px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 38px 0 70px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.logo {
+    color: #fff;
+
+    font-size: 23px;
+    font-weight: 800;
+
+    letter-spacing: -1.3px;
+}
+
+.logo::first-letter {
+    color: white;
+}
+
+.package {
+    padding: 7px 13px;
+
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.11),
+            rgba(255,255,255,0.035)
+        );
+
+    color: #ddd;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,0.05);
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress-info {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-bottom: 8px;
+
+    color: #777;
+
+    font-size: 12px;
+}
+
+.progress {
+    height: 5px;
+
+    margin-bottom: 22px;
+
+    background: rgba(255,255,255,0.08);
+
+    border-radius: 999px;
+
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            #777,
+            #fff
+        );
+
+    border-radius: 999px;
+
+    box-shadow:
+        0 0 12px rgba(255,255,255,0.2);
+
+    transition: width 0.35s ease;
+}
+
+
+/* =========================
+   MAIN BOX
+========================= */
+
+.box {
+    position: relative;
+
+    padding: 36px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 17px;
+
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(255,255,255,0.055),
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.055),
+            rgba(255,255,255,0.018)
+        );
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.35),
+        inset 0 1px rgba(255,255,255,0.04);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+
+/* =========================
+   QUESTION
+========================= */
+
+.emoji {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 20px;
+
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.1),
+            rgba(255,255,255,0.025)
+        );
+
+    font-size: 22px;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,0.06);
+}
+
+h1 {
+    margin: 0 0 11px;
+
+    color: #f5f5f5;
+
+    font-size: 30px;
+    line-height: 1.1;
+
+    letter-spacing: -1.2px;
+}
+
+.description {
+    margin: 0 0 27px;
+
+    color: #858585;
+
+    line-height: 1.65;
+    font-size: 15px;
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
+input,
+textarea {
+    width: 100%;
+
+    padding: 15px 16px;
+
+    margin-bottom: 12px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,0.035);
+
+    color: #f5f5f5;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #666;
+}
+
+input:hover,
+textarea:hover {
+    border-color: rgba(255,255,255,0.18);
+}
+
+input:focus,
+textarea:focus {
+    border-color: rgba(255,255,255,0.38);
+
+    background:
+        rgba(255,255,255,0.055);
+
+    box-shadow:
+        0 0 0 3px rgba(255,255,255,0.035);
+}
+
+textarea {
+    min-height: 120px;
+
+    resize: vertical;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+
+/* =========================
+   CHOICES
+========================= */
+
+.choice {
+    width: 100%;
+
+    padding: 16px 17px;
+
+    margin-bottom: 10px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,0.025);
+
+    color: #ddd;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        0.2s ease;
+}
+
+.choice:hover {
+    border-color: rgba(255,255,255,0.28);
+
+    background:
+        rgba(255,255,255,0.055);
+
+    transform: translateY(-1px);
+}
+
+.choice.selected {
+    border-color: rgba(255,255,255,0.45);
+
+    background:
+        linear-gradient(
+            135deg,
+            #f2f2f2,
+            #bcbcbc
+        );
+
+    color: #090909;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.25);
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.next {
+    width: 100%;
+
+    padding: 15px 18px;
+
+    margin-top: 5px;
+
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5f5f5,
+            #cfcfcf
+        );
+
+    color: #050505;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.3);
+
+    transition:
+        0.2s ease;
+}
+
+.next:hover {
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #dedede
+        );
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.4);
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.buttons .next {
+    flex: 1;
+    margin-top: 0;
+}
+
+.back {
+    padding: 14px 20px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.04);
+
+    color: #aaa;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition: 0.2s ease;
+}
+
+.back:hover {
+    border-color: rgba(255,255,255,0.2);
+
+    background:
+        rgba(255,255,255,0.07);
+
+    color: white;
+}
+
+.skip {
+    display: block;
+
+    margin: 15px auto 0;
+
+    border: none;
+    background: none;
+
+    color: #666;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+}
+
+.skip:hover {
+    color: #aaa;
+}
+
+
+/* =========================
+   SKILLS
+========================= */
+
+.category-title {
+    margin: 23px 0 10px;
+
+    color: #777;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.category-title:first-child {
+    margin-top: 0;
+}
+
+.skill-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+}
+
+.skill-button {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,0.025);
+
+    color: #aaa;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.skill-button:hover {
+    border-color: rgba(255,255,255,0.22);
+
+    background:
+        rgba(255,255,255,0.05);
+
+    color: white;
+}
+
+.skill-button.selected {
+    border-color: rgba(255,255,255,0.3);
+
+    background:
+        #ededed;
+
+    color: #090909;
+}
+
+.selected-count {
+    padding: 10px 12px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,0.03);
+
+    color: #888;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   PROFILE CHOICE
+========================= */
+
+.profile-choice {
+    padding: 17px;
+}
+
+.profile-choice strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-weight: 650;
+}
+
+.profile-choice span {
+    font-size: 13px;
+
+    color: #777;
+}
+
+.profile-choice.selected span {
+    color: #333;
+}
+
+
+/* =========================
+   REVIEW
+========================= */
+
+.review {
+    padding: 15px 0;
+
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.review-title {
+    margin-bottom: 5px;
+
+    color: #666;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.review-value {
+    color: #ddd;
+
+    line-height: 1.55;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
+
+    white-space: pre-wrap;
+}
+
+
+/* =========================
+   SUCCESS
+========================= */
+
+.success {
+    text-align: center;
+}
+
+.success-icon {
+    width: 75px;
+    height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 20px;
+
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.1),
+            rgba(255,255,255,0.025)
+        );
+
+    font-size: 34px;
+}
+
+
+/* =========================
+   PHOTO
+========================= */
+
+.photo-upload {
+    text-align: center;
+
+    margin-bottom: 20px;
+}
+
+.photo-preview {
+    width: 120px;
+    height: 120px;
+
+    display: block;
+
+    margin: 0 auto 15px;
+
+    border: 3px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.3);
+}
+
+.photo-placeholder {
+    width: 120px;
+    height: 120px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 15px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.04);
+
+    color: #777;
+
+    font-size: 42px;
+}
+
+.photo-label {
+    display: inline-block;
+
+    padding: 11px 17px;
+
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,0.06);
+
+    color: #ddd;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    transition: 0.2s ease;
+}
+
+.photo-label:hover {
+    border-color: rgba(255,255,255,0.3);
+
+    background:
+        rgba(255,255,255,0.1);
+}
+
+.photo-input {
+    display: none;
+}
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+.preview-wrapper {
+    margin-top: 25px;
+}
+
+.template-title {
+    margin-bottom: 10px;
+
+    color: #777;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.template-buttons {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 8px;
+
+    margin-bottom: 20px;
+}
+
+.template-button {
+    padding: 11px;
+
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,0.025);
+
+    color: #999;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.template-button:hover {
+    border-color: rgba(255,255,255,0.23);
+
+    color: white;
+}
+
+.template-button.selected {
+    border-color: rgba(255,255,255,0.3);
+
+    background:
+        #ededed;
+
+    color: #090909;
+}
+
+
+/* =========================
+   CV PREVIEW
+========================= */
+
+.resume-preview {
+    position: relative;
+
+    width: 100%;
+
+    background: white;
+
+    overflow: hidden;
+
+    border-radius: 4px;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.45);
+
+    user-select: none;
+}
+
+.resume-paper {
+    position: relative;
+
+    z-index: 1;
+
+    min-height: 850px;
+
+    word-break: break-all;
+}
+
+
+/* =========================
+   PDF A4
+========================= */
+
+.resume-preview.pdf-mode {
+    width: 210mm !important;
+    height: 297mm !important;
+
+    min-height: 297mm !important;
+
+    margin: 0 !important;
+
+    border-radius: 0;
+
+    box-shadow: none;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+}
+
+.resume-preview.pdf-mode .resume-paper {
+    width: 210mm;
+
+    min-height: 297mm;
+
+    overflow: visible;
+}
+
+.resume-watermark {
+    position: absolute;
+
+    top: 45%;
+    left: -20%;
+
+    width: 140%;
+
+    transform: rotate(-30deg);
+
+    text-align: center;
+
+    font-size: 34px;
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    color: rgba(0,0,0,0.09);
+
+    z-index: 20;
+
+    pointer-events: none;
+
+    white-space: nowrap;
+}
+
+.resume-photo {
+    width: 115px !important;
+    height: 115px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    aspect-ratio: 1 / 1;
+    display: block;
+    border-radius: 50%;
+}
+
+.resume-no-photo {
+    width: 115px;
+    height: 115px;
+    flex: 0 0 115px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    overflow: hidden;
+
+    background: #eee;
+}
+
+
+/* =========================
+   MODERN CV
+========================= */
+
+.resume-modern .resume-paper {
+    padding: 38px;
+}
+
+.modern-top {
+    display: flex;
+    align-items: center;
+
+    gap: 22px;
+
+    padding-bottom: 25px;
+
+    border-bottom: 3px solid #222;
+}
+
+.modern-name {
+    margin-bottom: 6px;
+
+    font-size: 29px;
+    font-weight: bold;
+    color: #222 !important;
+}
+
+.modern-position {
+    margin-bottom: 12px;
+
+    color: #666;
+
+    font-size: 16px;
+}
+
+.modern-contact {
+    color: #777;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.modern-section {
+    margin-top: 24px;
+}
+
+.modern-title {
+    margin-bottom: 9px;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+.modern-text {
+    color: #444;
+
+    font-size: 13px;
+
+    line-height: 1.55;
+}
+
+.modern-columns {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 25px;
+}
+
+.modern-skill {
+    display: inline-block;
+
+    padding: 6px 8px;
+
+    margin: 0 4px 5px 0;
+
+    border-radius: 6px;
+
+    background: #f0f0f0;
+
+    font-size: 11px;
+}
+
+
+/* =========================
+   MINIMAL CV
+========================= */
+
+.resume-minimal .resume-paper {
+    padding: 48px;
+}
+
+.minimal-header {
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid #ccc;
+
+    text-align: center;
+}
+
+.minimal-photo {
+    margin-bottom: 15px;
+}
+
+.minimal-name {
+    font-size: 32px;
+    font-weight: 300;
+
+    letter-spacing: 1px;
+}
+
+.minimal-position {
+    margin-top: 8px;
+
+    color: #777;
+
+    font-size: 14px;
+}
+
+.minimal-contact {
+    margin-top: 12px;
+
+    color: #888;
+
+    font-size: 11px;
+}
+
+.minimal-section {
+    margin-top: 28px;
+}
+
+.minimal-title {
+    margin-bottom: 10px;
+
+    color: #777;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+.minimal-text {
+    color: #444;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+.minimal-skill {
+    display: inline-block;
+
+    margin-right: 12px;
+    margin-bottom: 7px;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   CREATIVE CV
+========================= */
+
+.resume-creative .resume-paper {
+    display: grid !important;
+    grid-template-columns: 34% 66% !important;
+    padding: 0 !important;
+    background: #fff !important;
+}
+
+.resume-creative .creative-side {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    background: #222 !important;
+    color: #fff !important;
+    padding: 30px 22px !important;
+}
+
+.resume-creative .creative-main {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    background: #fff !important;
+    color: #222 !important;
+    padding: 35px 28px !important;
+}
+
+.resume-creative .creative-side {
+    grid-column: 1;
+}
+
+.resume-creative .creative-main {
+    grid-column: 2;
+    background: #fff !important;
+}
+
+.creative-side {
+    padding: 30px 22px;
+    background: #222 !important;
+    color: #fff !important;
+}
+
+.creative-main {
+    padding: 35px 28px;
+    background: #fff !important;
+    color: #222 !important;
+}
+
+.creative-side .resume-photo,
+.creative-side .resume-no-photo {
+    margin: 0 auto 25px;
+}
+
+.creative-name {
+    margin-bottom: 7px;
+
+    font-size: 23px;
+    font-weight: bold;
+
+    text-align: center;
+}
+
+.creative-position {
+    color: #ccc;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+
+    text-align: center;
+}
+
+.creative-side-title {
+    margin-top: 30px;
+    margin-bottom: 10px;
+
+    color: #bbb;
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+.creative-side-text {
+    color: #ddd;
+
+    font-size: 11px;
+
+    line-height: 1.55;
+}
+
+.creative-main-title {
+    margin-bottom: 10px;
+
+    padding-bottom: 6px;
+
+    border-bottom: 1px solid #ddd;
+
+    font-size: 12px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+.creative-main-section {
+    margin-bottom: 27px;
+}
+
+.creative-main-text {
+    color: #444;
+
+    font-size: 13px;
+
+    line-height: 1.55;
+}
+
+.creative-skill {
+    display: inline-block;
+
+    padding: 6px 8px;
+
+    margin: 0 5px 5px 0;
+
+    border-radius: 5px;
+
+    background: #eee;
+
+    font-size: 11px;
+}
+
+
+/* =========================
+   PREVIEW / PURCHASE
+========================= */
+
+.preview-note {
+    padding: 17px;
+
+    margin-top: 20px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,0.035);
+
+    color: #888;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+.preview-price {
+    margin-top: 15px;
+
+    color: #999;
+
+    font-size: 14px;
+
+    text-align: center;
+}
+
+.buy-button {
+    width: 100%;
+
+    padding: 16px;
+
+    margin-top: 12px;
+
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5f5f5,
+            #cfcfcf
+        );
+
+    color: #050505;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.3);
+
+    transition: 0.2s ease;
+}
+
+.buy-button:hover {
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            135deg,
+            white,
+            #ddd
+        );
+}
+
+.preview-blur {
+    filter: blur(1.3px);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .container {
+        width: min(100% - 20px, 700px);
+
+        padding-top: 20px;
+        padding-bottom: 40px;
+    }
+
+    .box {
+        padding: 25px 18px;
+
+        border-radius: 14px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .skill-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons {
+        flex-direction: column-reverse;
+    }
+
+    .buttons .back {
+        width: 100%;
+    }
+
+    .template-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .resume-paper {
+        transform-origin: top left;
+    }
+
+    .resume-preview {
+        overflow-x: auto;
+    }
+
+    .resume-modern .resume-paper {
+        padding: 25px;
+
+        min-width: 520px;
+    }
+
+    .resume-minimal .resume-paper {
+        padding: 30px;
+
+        min-width: 520px;
+    }
+
+    .resume-creative .resume-paper {
+        min-width: 520px;
+    }
+
+    .photo-preview,
+    .photo-placeholder {
+        width: 105px;
+        height: 105px;
+    }
+}
+
+/* =========================
+   PHOTO CROPPER
+========================= */
+
+.photo-crop-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.photo-crop-modal {
+    width: min(440px, 100%);
+    background: #181818;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.55);
+    text-align: center;
+}
+
+.photo-crop-modal h2 {
+    margin: 0 0 8px;
+    color: #ffffff;
+}
+
+.photo-crop-modal p {
+    margin: 0 0 22px;
+    color: #a9a9a9;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.photo-crop-area {
+    width: 320px;
+    height: 320px;
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #0d0d0d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.photo-crop-area::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 18px;
+    pointer-events: none;
+}
+
+.photo-crop-image {
+    position: absolute;
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
+    display: block;
+    left: 50%;
+    top: 50%;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-drag: none;
+    touch-action: none;
+    transition: none;
+}
+
+.photo-crop-image:active {
+    cursor: grabbing;
+}
+
+.photo-crop-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.crop-control {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #242424;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.crop-control:hover {
+    background: #333333;
+}
+
+.photo-crop-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.photo-crop-buttons button {
+    min-width: 130px;
+}
+
+@media (max-width: 600px) {
+
+    .photo-crop-modal {
+        padding: 20px;
+    }
+
+    .photo-crop-area {
+        width: 280px;
+        height: 280px;
+    }
+
+}
+
+.question-icon {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.question-icon svg {
+    width: 27px;
+    height: 27px;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.package-icon,
+.package-option-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.package-icon {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 18px;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.05);
+}
+
+.package-icon svg,
+.package-option-icon svg {
+    width: 27px;
+    height: 27px;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.package-option-icon {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+}
+
+.success-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 18px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 18px;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success-icon svg {
+    width: 32px;
+    height: 32px;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.resume-no-photo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resume-no-photo svg {
+    width: 42px;
+    height: 42px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Професійні іконки в кнопках освіти */
+.choice-icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.choice-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Іконки категорій навичок */
+.category-icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+.category-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.creative-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    margin-bottom: 12px;
+}
+
+.creative-contact-item svg {
+    width: 15px;
+    height: 15px;
+    flex: 0 0 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    margin-top: 1px;
+}
+
+.resume-creative .creative-side .resume-photo {
+    width: 115px !important;
+    height: 115px !important;
+    min-width: 115px !important;
+    min-height: 115px !important;
+    max-width: 115px !important;
+    max-height: 115px !important;
+
+    object-fit: cover !important;
+    object-position: center !important;
+
+    aspect-ratio: 1 / 1;
+
+    display: block;
+    margin: 0 auto 25px !important;
+
+    border-radius: 50%;
+}
+
+.resume-creative .creative-side .resume-no-photo {
+    width: 115px !important;
+    height: 115px !important;
+    min-width: 115px !important;
+    min-height: 115px !important;
+    max-width: 115px !important;
+    max-height: 115px !important;
+
+    margin: 0 auto 25px !important;
+
+    border-radius: 50%;
+}
+
+.resume-paper .resume-contact-item svg,
+.resume-paper .creative-contact-item svg,
+.resume-paper .minimal-contact-item svg {
+    width: 15px !important;
+    height: 15px !important;
+    min-width: 15px !important;
+    min-height: 15px !important;
+    max-width: 15px !important;
+    max-height: 15px !important;
+    flex: 0 0 15px !important;
+}
+
+/* ===== ВИПРАВЛЕННЯ КОЛЬОРІВ ШАБЛОНІВ ===== */
+
+/* MODERN */
+.resume-modern .modern-title {
+    color: #222 !important;
+}
+
+.resume-modern .modern-text {
+    color: #333 !important;
+}
+
+.resume-modern .modern-skill {
+    color: #222 !important;
+    background: #f1f1f1 !important;
+    border: 1px solid #d6d6d6 !important;
+}
+
+/* MINIMAL */
+.resume-minimal .minimal-header {
+    text-align: center !important;
+}
+
+.resume-minimal .minimal-photo-wrap {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.resume-minimal .minimal-header-info {
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.resume-minimal .minimal-name {
+    color: #222 !important;
+}
+
+.resume-minimal .minimal-position {
+    color: #666 !important;
+}
+
+.resume-minimal .minimal-contact {
+    color: #777 !important;
+}
+
+.resume-minimal .minimal-title {
+    color: #222 !important;
+}
+
+.resume-minimal .minimal-text {
+    color: #333 !important;
+}
+
+.resume-minimal .minimal-skill {
+    color: #222 !important;
+    background: #f1f1f1 !important;
+    border: 1px solid #d6d6d6 !important;
+}
+
+/* CREATIVE */
+.resume-creative .creative-main-title {
+    color: #222 !important;
+}
+
+.resume-creative .creative-main-text {
+    color: #333 !important;
+}
+
+.resume-creative .creative-side-title {
+    color: #fff !important;
+}
+
+.resume-creative .creative-side-text {
+    color: #fff !important;
+}
+
+.resume-creative .creative-skill {
+    color: #222 !important;
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+}
+
+.field-label {
+    margin-top: 16px;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ddd;
+    text-align: left;
+}
+
+.field-label:first-of-type {
+    margin-top: 0;
+}
+
+.resume-creative .creative-main-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.resume-creative .creative-main-skills .creative-skill {
+    display: inline-block;
+    color: #222 !important;
+    background: #f1f1f1 !important;
+    border: 1px solid #d6d6d6 !important;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    line-height: 1.3;
+}
+
+.professional-strength-choice {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+    white-space: normal !important;
+}
+
+.professional-strength-choice strong {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 10px !important;
+    line-height: 1.4 !important;
+    font-size: 15px !important;
+}
+
+.professional-strength-choice span {
+    display: block !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+    line-height: 1.6 !important;
+    font-size: 13px !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* ===== CREATIVE: КОЛЬОРИ ТЕКСТУ ===== */
+
+/* Ліва темна частина */
+.resume-creative .creative-side {
+    color: #fff !important;
+}
+
+.resume-creative .creative-side .creative-name {
+    color: #fff !important;
+}
+
+.resume-creative .creative-side .creative-position {
+    color: #ccc !important;
+}
+
+.resume-creative .creative-side .creative-side-title {
+    color: #fff !important;
+}
+
+.resume-creative .creative-side .creative-side-text {
+    color: #ddd !important;
+}
+
+/* Контакти зліва */
+.resume-creative .creative-side .creative-contact-item {
+    color: #ddd !important;
+}
+
+/* Права біла частина */
+.resume-creative .creative-main {
+    color: #222 !important;
+    background: #fff !important;
+}
+
+.resume-creative .creative-main-title {
+    color: #222 !important;
+}
+
+.resume-creative .creative-main-text {
+    color: #333 !important;
+}
+
+/* Навички справа */
+.resume-creative .creative-main-skills {
+    color: #222 !important;
+}
+
+.resume-creative .creative-main-skills .creative-skill {
+    color: #222 !important;
+    background: #f1f1f1 !important;
+    border: 1px solid #d6d6d6 !important;
+}
+
+.resume-creative .creative-main-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.resume-creative .creative-main-skills .creative-skill {
+    display: inline-block;
+}
+
+.resume-creative .creative-main-skills {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin-top: 10px !important;
+}
+
+.resume-creative .creative-main-skills .creative-skill {
+    display: inline-block !important;
+    color: #222 !important;
+    background: #f1f1f1 !important;
+    border: 1px solid #d6d6d6 !important;
+    padding: 6px 10px !important;
+    border-radius: 5px !important;
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+}
+
+.resume-creative .creative-main {
+    background: #fff !important;
+    color: #222 !important;
+}
+
+.resume-creative .creative-main-title {
+    color: #222 !important;
+}
+
+.resume-creative .creative-main-text {
+    color: #333 !important;
+}
+
+.resume-creative .creative-main-skills {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+
+.resume-creative .creative-main-skills .creative-skill {
+    display: inline-block !important;
+    color: #222 !important;
+    background: #f1f1f1 !important;
+    border: 1px solid #d6d6d6 !important;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <div class="logo">CVly</div>
+        <div class="package" id="packageName"></div>
+    </div>
+
+    <div class="progress-info" id="progressText"></div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="box" id="box"></div>
+
+</div>
+
+
+<script>
+
+var params = new URLSearchParams(window.location.search);
+var packageType = params.get("package");
+
+var packageNames = {
+    start: "Старт",
+    pro: "Профі",
+    max: "Максимум"
+};
+
+var packagePrices = {
+    start: 90,
+    pro: 190,
+    max: 290
+};
+
+
+/* =========================
+   ВИБІР ПАКЕТА
+========================= */
+
+function showPackageSelection() {
+
+    var box = document.getElementById("box");
+
+    document.getElementById("progressText").textContent = "";
+    document.getElementById("progressBar").style.width = "0%";
+
+    box.innerHTML =
+        '<div class="package-icon">' +
+            '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+                '<path d="M4 5h16v14H4z"></path>' +
+                '<path d="M8 9h8M8 13h6"></path>' +
+            '</svg>' +
+        '</div>' +
+
+        '<h1>Яке резюме створимо для тебе?</h1>' +
+
+        '<p class="description">' +
+        'Обери формат, який найкраще відповідає твоїй меті. ' +
+        'Почнемо з простих запитань, а далі допоможемо зібрати все в одне професійне резюме.' +
+        '</p>' +
+
+        '<button class="choice profile-choice" onclick="selectPackage(\'start\')">' +
+
+            '<div class="package-option-icon">' +
+                '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+                    '<path d="M4 5h16v14H4z"></path>' +
+                    '<path d="M8 9h8M8 13h5"></path>' +
+                '</svg>' +
+            '</div>' +
+
+            '<strong>Професійне резюме</strong>' +
+            '<span>Чітка структура, сучасний дизайн та готове резюме для пошуку роботи.</span>' +
+
+        '</button>' +
+
+        '<button class="choice profile-choice" onclick="selectPackage(\'pro\')">' +
+
+            '<div class="package-option-icon">' +
+                '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+                    '<path d="M12 3l2.2 5 5.3.5-4 3.5 1.2 5.2-4.7-2.8-4.7 2.8-1.2 5.2 4-3.5-5.3-.5L12 3z"></path>' +
+                '</svg>' +
+            '</div>' +
+
+            '<strong>Резюме + супровідний лист</strong>' +
+            '<span>Для тих, хто хоче представити себе роботодавцю ще сильніше.</span>' +
+
+        '</button>' +
+
+        '<button class="choice profile-choice" onclick="selectPackage(\'max\')">' +
+
+            '<div class="package-option-icon">' +
+                '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+                    '<path d="M12 3l2.2 4.8 5.3.7-3.9 3.7.9 5.3-4.5-2.5-4.5 2.5.9-5.3-3.9-3.7 5.3-.7L12 3z"></path>' +
+                '</svg>' +
+            '</div>' +
+
+            '<strong>Максимальна підготовка</strong>' +
+            '<span>Резюме, супровідний лист та підготовка під конкретні вакансії.</span>' +
+
+        '</button>';
+}
+
+function selectPackage(type) {
+
+    packageType = type;
+
+    document.getElementById("packageName").textContent =
+        "Обрано: " + packageNames[packageType];
+
+    questions = baseQuestions.slice();
+
+    if (packageType === "pro") {
+        questions = questions.concat(proQuestions);
+    }
+
+    if (packageType === "max") {
+        questions = questions.concat(proQuestions);
+        questions = questions.concat(maxQuestions);
+    }
+
+    step = 0;
+
+    showQuestion();
+}
+
+
+/* =========================
+   ВІДПОВІДІ
+========================= */
+
+var answers = {};
+var step = 0;
+
+
+/* =========================
+   ОСНОВНІ ПИТАННЯ
+========================= */
+
+var questions = [
+
+    {
+        id: "name",
+        emoji: "👋",
+        title: "Як тебе звати?",
+        description: "Вкажи ім'я та прізвище.",
+        type: "input",
+        placeholder: "Наприклад, Анна Петренко"
+    },
+
+    {
+        id: "position",
+        emoji: "🎯",
+        title: "Яку роботу шукаєш?",
+        description: "Обери потрібну посаду.",
+        type: "position"
+    },
+
+    {
+        id: "experience",
+        emoji: "💼",
+        title: "Маєш досвід роботи?",
+        description: "Обери варіант.",
+        type: "experience"
+    },
+
+    {
+        id: "education",
+        emoji: "🎓",
+        title: "Яка у тебе освіта?",
+        description: "Спочатку обери рівень освіти.",
+        type: "education"
+    },
+
+    {
+        id: "skills",
+        emoji: "🛠️",
+        title: "Які навички ти маєш?",
+        description: "Обери ті, які справді відповідають твоєму досвіду.",
+        type: "skills"
+    },
+
+    {
+        id: "location",
+        emoji: "📍",
+        title: "Де шукаєш роботу?",
+        description: "Вкажи місто або країну.",
+        type: "input",
+        placeholder: "Наприклад, Львів"
+    },
+
+    {
+    
+        id: "email",
+        emoji: "📧",
+        title: "Куди надіслати резюме?",
+        description: "Вкажи email.",
+        type: "email",
+        placeholder: "your@email.com"
+    },
+
+    {
+    
+        id: "phone",
+        emoji: "📱",
+        title: "Твій номер телефону",
+        description: "Вкажи номер, за яким з тобою можна зв'язатися.",
+        type: "input",
+        placeholder: "+380 67 123 45 67"
+    },
+
+    {
+        id: "photo",
+        emoji: "📸",
+        title: "Хочеш додати фото?",
+        description: "Фото допоможе зробити резюме більш персональним.",
+        type: "photo"
+    }
+
+];
+
+var baseQuestions = questions.slice();
+
+/* =========================
+   ПРОФІ
+========================= */
+
+var proQuestions = [
+
+    {
+        id: "about",
+        emoji: "✨",
+        title: "Розкажи трохи про себе",
+        description: "Кілька речень про твій професійний досвід і сильні сторони.",
+        type: "textarea",
+        placeholder: "Наприклад: відповідальна, комунікабельна, швидко навчаюся..."
+    },
+
+    {
+        id: "achievements",
+        emoji: "🏆",
+        title: "Чим ти пишаєшся у своїй роботі?",
+        description: "Не обов'язково мати великі цифри. Розкажи про результат, яким пишаєшся.",
+        type: "textarea",
+        placeholder: "Наприклад: збільшила продажі, навчила нових працівників..."
+    },
+
+    {
+        id: "professionalStrength",
+        emoji: "⭐",
+        title: "У чому твій професійний козир?",
+        description: "Це допоможе зробити резюме більш персональним.",
+        type: "profile"
+    },
+
+    {
+        id: "languages",
+        emoji: "🌍",
+        title: "Які мови знаєш?",
+        description: "Вкажи мову та рівень.",
+        type: "textarea",
+        placeholder: "Англійська — B1\nПольська — A2"
+    },
+
+    {
+        id: "cover",
+        emoji: "✉️",
+        title: "Чому хочеш цю роботу?",
+        description: "Твоя відповідь допоможе створити сильніший супровідний лист.",
+        type: "textarea",
+        placeholder: "Наприклад: хочу розвиватися у сфері..."
+    }
+
+];
+
+
+/* =========================
+   МАКСИМУМ
+========================= */
+
+var maxQuestions = [
+
+    {
+        id: "salary",
+        emoji: "💰",
+        title: "Яку зарплату очікуєш?",
+        description: "Вкажи бажану суму або діапазон.",
+        type: "input",
+        placeholder: "Наприклад, 25 000–30 000 грн"
+    },
+
+    {
+        id: "employment",
+        emoji: "🕐",
+        title: "Який тип зайнятості підходить?",
+        description: "Можеш вибрати декілька.",
+        type: "multi",
+        options: [
+            "Повна зайнятість",
+            "Неповна зайнятість",
+            "Позмінна",
+            "Стажування",
+            "Фриланс"
+        ]
+    },
+
+    {
+        id: "workFormat",
+        emoji: "💻",
+        title: "Який формат роботи хочеш?",
+        description: "Обери один варіант.",
+        type: "choice",
+        options: [
+            "🏢 В офісі",
+            "🏠 Віддалено",
+            "🔄 Гібрид",
+            "Не має значення"
+        ]
+    },
+
+    {
+        id: "vacancy1",
+        emoji: "🎯",
+        title: "Перша вакансія",
+        description: "Вкажи назву або посилання на вакансію.",
+        type: "input",
+        placeholder: "Назва або посилання"
+    },
+
+    {
+        id: "vacancy2",
+        emoji: "🎯",
+        title: "Друга вакансія",
+        description: "Вкажи назву або посилання на вакансію.",
+        type: "input",
+        placeholder: "Назва або посилання"
+    }
+
+];
+
+
+if (packageType === "pro") {
+    questions = questions.concat(proQuestions);
+}
+
+if (packageType === "max") {
+    questions = questions.concat(proQuestions);
+    questions = questions.concat(maxQuestions);
+}
+
+
+/* =========================
+   ПОКАЗ ПИТАННЯ
+========================= */
+
+function showQuestion() {
+
+    var q = questions[step];
+    var box = document.getElementById("box");
+
+    if (!q) {
+        showResult();
+        return;
+    }
+
+    var html = "";
+
+    html += '<div class="question-icon">' + getQuestionIcon(q) + '</div>';
+    html += '<h1>' + q.title + '</h1>';
+    html += '<p class="description">' + q.description + '</p>';
+    html += '<div id="answerArea"></div>';
+
+    box.innerHTML = html;
+
+    var area = document.getElementById("answerArea");
+
+    if (q.type === "input" || q.type === "email") {
+        showInput(area, q);
+    }
+
+    if (q.type === "textarea") {
+        showTextarea(area, q);
+    }
+
+function getQuestionIcon(q) {
+
+    var text =
+        ((q.id || "") + " " + (q.title || "")).toLowerCase();
+
+    if (
+        text.includes("ім") ||
+        text.includes("name") ||
+        text.includes("ім'я")
+    ) {
+        return `
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="3.5"></circle>
+                <path d="M5 20c.8-4 3-6 7-6s6.2 2 7 6"></path>
+            </svg>
+        `;
+    }
+
+    if (
+        text.includes("посад") ||
+        text.includes("position")
+    ) {
+        return `
+            <svg viewBox="0 0 24 24">
+                <rect x="4" y="5" width="16" height="14" rx="2"></rect>
+                <path d="M9 5V3h6v2"></path>
+                <path d="M4 10h16"></path>
+            </svg>
+        `;
+    }
+
+    if (
+        text.includes("досвід") ||
+        text.includes("experience")
+    ) {
+        return `
+            <svg viewBox="0 0 24 24">
+                <rect x="4" y="6" width="16" height="13" rx="2"></rect>
+                <path d="M9 6V4h6v2"></path>
+                <path d="M8 12h8"></path>
+                <path d="M10 15h4"></path>
+            </svg>
+        `;
+    }
+
+    if (
+        text.includes("освіт") ||
+        text.includes("education")
+    ) {
+        return `
+            <svg viewBox="0 0 24 24">
+                <path d="M3 9l9-5 9 5-9 5-9-5z"></path>
+                <path d="M7 11v5c2 2 8 2 10 0v-5"></path>
+                <path d="M21 9v6"></path>
+            </svg>
+        `;
+    }
+
+    if (
+        text.includes("навич") ||
+        text.includes("skill")
+    ) {
+        return `
+            <svg viewBox="0 0 24 24">
+                <path d="M12 3l2.1 5.3L20 10l-4.5 3.5L17 19l-5-3 1.5-5.5L4 10l5.9-1.7L12 3z"></path>
+            </svg>
+        `;
+    }
+
+    if (
+        text.includes("міст") ||
+        text.includes("локац") ||
+        text.includes("location")
+    ) {
+        return `
+            <svg viewBox="0 0 24 24">
+                <path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"></path>
+                <circle cx="12" cy="10" r="2.5"></circle>
+            </svg>
+        `;
+    }
+
+    if (
+        text.includes("email") ||
+        text.includes("електрон") ||
+        text.includes("пошт")
+    ) {
+        return `
+            <svg viewBox="0 0 24 24">
+                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                <path d="M4 7l8 6 8-6"></path>
+            </svg>
+        `;
+    }
+
+    if (
+        text.includes("телефон") ||
+        text.includes("phone")
+    ) {
+        return `
+            <svg viewBox="0 0 24 24">
+                <path d="M7 4l3 1-1.5 4-2-.5c1 2.5 2.5 4 5 5l.5-2 4 1 1 3c.3 1-.4 2-1.4 2C9 17.5 6.5 15 5 12S3.5 7 4 5.5C4.3 4.5 5.5 3.7 7 4z"></path>
+            </svg>
+        `;
+    }
+
+    if (
+        text.includes("фото") ||
+        text.includes("photo")
+    ) {
+        return `
+            <svg viewBox="0 0 24 24">
+                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                <circle cx="9" cy="10" r="2"></circle>
+                <path d="M3 17l5-5 4 4 2-2 7 5"></path>
+            </svg>
+        `;
+    }
+
+    if (
+        text.includes("про себе") ||
+        text.includes("about")
+    ) {
+        return `
+            <svg viewBox="0 0 24 24">
+                <path d="M4 5h16v14H4z"></path>
+                <path d="M8 9h8M8 13h6"></path>
+            </svg>
+        `;
+    }
+
+    if (
+        text.includes("досяг") ||
+        text.includes("achievement")
+    ) {
+        return `
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="5"></circle>
+                <path d="M9 12l-2 8 5-3 5 3-2-8"></path>
+            </svg>
+        `;
+    }
+
+    if (
+        text.includes("мов") ||
+        text.includes("language")
+    ) {
+        return `
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M3 12h18"></path>
+                <path d="M12 3c3 3 3 15 0 18"></path>
+                <path d="M12 3c-3 3-3 15 0 18"></path>
+            </svg>
+        `;
+    }
+
+    return `
+        <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="8"></circle>
+        </svg>
+    `;
+}
+
+    if (q.type === "position") {
+        showPositions(area);
+    }
+
+    if (q.type === "experience") {
+        showExperience(area);
+    }
+
+    if (q.type === "education") {
+        showEducation(area);
+    }
+
+    if (q.type === "skills") {
+        showSkills(area);
+    }
+
+    if (q.type === "choice") {
+        showChoice(area, q.options, q.id);
+    }
+
+    if (q.type === "multi") {
+        showMulti(area, q.options, q.id);
+    }
+
+    if (q.type === "profile") {
+        showProfessionalStrength(area);
+    }
+
+    if (q.type === "photo") {
+        showPhoto(area);
+    }
+
+    updateProgress();
+}
+
+
+/* =========================
+   ТЕКСТОВЕ ПОЛЕ
+========================= */
+
+function showInput(area, q) {
+
+    var input = document.createElement("input");
+
+    input.id = "currentInput";
+    input.type = q.type === "email" ? "email" : "text";
+    input.placeholder = q.placeholder || "";
+    input.value = answers[q.id] || "";
+
+    area.appendChild(input);
+
+    input.focus();
+
+    input.onkeydown = function(event) {
+
+        if (event.key === "Enter") {
+            goNext();
+        }
+
+    };
+
+    addNavigation(area, true);
+}
+
+
+/* =========================
+   TEXTAREA
+========================= */
+
+function showTextarea(area, q) {
+
+    var textarea = document.createElement("textarea");
+    textarea.setAttribute("wrap", "soft");
+    textarea.style.whiteSpace = "pre-wrap";
+    textarea.style.overflowWrap = "anywhere";
+    textarea.style.wordBreak = "break-all";
+
+    textarea.id = "currentInput";
+    textarea.placeholder = q.placeholder || "";
+    textarea.value = answers[q.id] || "";
+
+    area.appendChild(textarea);
+
+    addNavigation(area, true);
+}
+
+
+/* =========================
+   ФОТО
+========================= */
+
+function showPhoto(area) {
+
+    var wrapper = document.createElement("div");
+    wrapper.className = "photo-upload";
+
+    if (answers.photo) {
+
+        var img = document.createElement("img");
+
+        img.src = answers.photo;
+        img.className = "photo-preview";
+
+        wrapper.appendChild(img);
+
+    } else {
+
+        var placeholder = document.createElement("div");
+
+        placeholder.className = "photo-placeholder";
+        placeholder.textContent = "Фото";
+
+        wrapper.appendChild(placeholder);
+    }
+
+
+    var label = document.createElement("label");
+
+    label.className = "photo-label";
+    label.textContent =
+        answers.photo
+        ? "Змінити фото"
+        : "Додати фото";
+
+
+    var fileInput = document.createElement("input");
+
+    fileInput.type = "file";
+    fileInput.accept = "image/*";
+    fileInput.className = "photo-input";
+
+
+    fileInput.onchange = function() {
+
+        var file = this.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        if (!file.type.startsWith("image/")) {
+            return;
+        }
+
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+
+            openPhotoCropper(
+                event.target.result,
+                area
+            );
+
+        };
+
+        reader.readAsDataURL(file);
+
+    };
+
+
+    label.appendChild(fileInput);
+
+    wrapper.appendChild(label);
+
+    area.appendChild(wrapper);
+
+
+    var buttons = document.createElement("div");
+
+    buttons.className = "buttons";
+
+
+    var back = document.createElement("button");
+
+    back.className = "back";
+    back.textContent = "← Назад";
+    back.onclick = goBack;
+
+
+    var next = document.createElement("button");
+
+    next.className = "next";
+    next.textContent = "Далі →";
+    next.onclick = goNext;
+
+
+    buttons.appendChild(back);
+    buttons.appendChild(next);
+
+    area.appendChild(buttons);
+
+
+    var skipButton = document.createElement("button");
+
+    skipButton.className = "skip";
+    skipButton.textContent = "Пропустити";
+
+    skipButton.onclick = function() {
+
+        answers.photo = "";
+
+        step++;
+
+        showQuestion();
+
+    };
+
+    area.appendChild(skipButton);
+}
+
+function openPhotoCropper(imageSrc, area) {
+
+    var overlay = document.createElement("div");
+    overlay.className = "photo-crop-overlay";
+
+    var modal = document.createElement("div");
+    modal.className = "photo-crop-modal";
+
+    var title = document.createElement("h2");
+    title.textContent = "Налаштуй фото";
+
+    var description = document.createElement("p");
+    description.textContent =
+        "Перетягни фото та вибери потрібну частину.";
+
+    var cropArea = document.createElement("div");
+    cropArea.className = "photo-crop-area";
+
+    var img = document.createElement("img");
+
+img.src = imageSrc;
+
+img.className = "photo-crop-image";
+
+img.draggable = false;
+
+    cropArea.appendChild(img);
+
+
+    /* =========================
+       ПОЗИЦІЯ ФОТО
+    ========================= */
+
+    var scale = 1;
+    var positionX = 0;
+    var positionY = 0;
+
+    var baseScale = 1;
+
+    var dragging = false;
+    var startX = 0;
+    var startY = 0;
+
+
+    function updateImage() {
+
+    var cropSize = cropArea.clientWidth;
+
+    var imageWidth = img.naturalWidth;
+    var imageHeight = img.naturalHeight;
+
+    if (!imageWidth || !imageHeight) {
+        return;
+    }
+
+    /*
+     * Автоматично підганяємо фото
+     * під квадрат.
+     */
+
+    baseScale = Math.max(
+        cropSize / imageWidth,
+        cropSize / imageHeight
+    );
+
+    var finalScale =
+        baseScale * scale;
+
+    img.style.width =
+        (imageWidth * finalScale) + "px";
+
+    img.style.height =
+        (imageHeight * finalScale) + "px";
+
+    img.style.transform =
+        "translate(-50%, -50%) translate(" +
+        positionX +
+        "px, " +
+        positionY +
+        "px)";
+
+}
+
+
+    /* =========================
+       ПЕРЕТЯГУВАННЯ МИШКОЮ
+    ========================= */
+
+    img.onmousedown = function(event) {
+
+        event.preventDefault();
+
+        dragging = true;
+
+        startX =
+            event.clientX - positionX;
+
+        startY =
+            event.clientY - positionY;
+
+    };
+
+
+    document.onmousemove = function(event) {
+
+        if (!dragging) {
+            return;
+        }
+
+        positionX =
+            event.clientX - startX;
+
+        positionY =
+            event.clientY - startY;
+
+        updateImage();
+
+    };
+
+
+    document.onmouseup = function() {
+
+        dragging = false;
+
+    };
+
+
+    /* =========================
+       ПЕРЕТЯГУВАННЯ НА ТЕЛЕФОНІ
+    ========================= */
+
+    img.ontouchstart = function(event) {
+
+        if (event.touches.length !== 1) {
+            return;
+        }
+
+        var touch = event.touches[0];
+
+        dragging = true;
+
+        startX =
+            touch.clientX - positionX;
+
+        startY =
+            touch.clientY - positionY;
+
+    };
+
+
+    img.ontouchmove = function(event) {
+
+        if (!dragging) {
+            return;
+        }
+
+        event.preventDefault();
+
+        var touch = event.touches[0];
+
+        positionX =
+            touch.clientX - startX;
+
+        positionY =
+            touch.clientY - startY;
+
+        updateImage();
+
+    };
+
+
+    img.ontouchend = function() {
+
+        dragging = false;
+
+    };
+
+
+    /* =========================
+       МАСШТАБ КОЛЕСОМ
+    ========================= */
+
+    cropArea.onwheel = function(event) {
+
+        event.preventDefault();
+
+        if (event.deltaY < 0) {
+
+            scale += 0.1;
+
+        } else {
+
+            scale -= 0.1;
+
+        }
+
+        if (scale < 1) {
+            scale = 1;
+        }
+
+        if (scale > 3) {
+            scale = 3;
+        }
+
+        updateImage();
+
+    };
+
+
+    /* =========================
+       КНОПКИ МАСШТАБУ
+    ========================= */
+
+    var controls =
+        document.createElement("div");
+
+    controls.className =
+        "photo-crop-controls";
+
+
+    var minus =
+        document.createElement("button");
+
+    minus.type = "button";
+    minus.className = "crop-control";
+    minus.textContent = "−";
+
+
+    var plus =
+        document.createElement("button");
+
+    plus.type = "button";
+    plus.className = "crop-control";
+    plus.textContent = "+";
+
+
+    plus.onclick = function() {
+
+        scale += 0.1;
+
+        if (scale > 3) {
+            scale = 3;
+        }
+
+        updateImage();
+
+    };
+
+
+    minus.onclick = function() {
+
+        scale -= 0.1;
+
+        if (scale < 1) {
+            scale = 1;
+        }
+
+        updateImage();
+
+    };
+
+
+    controls.appendChild(minus);
+    controls.appendChild(plus);
+
+
+    /* =========================
+       КНОПКИ
+    ========================= */
+
+    var buttons =
+        document.createElement("div");
+
+    buttons.className =
+        "photo-crop-buttons";
+
+
+    var cancel =
+        document.createElement("button");
+
+    cancel.type = "button";
+    cancel.className = "back";
+    cancel.textContent = "Скасувати";
+
+
+    cancel.onclick = function() {
+
+        document.onmousemove = null;
+        document.onmouseup = null;
+
+        overlay.remove();
+
+    };
+
+
+    var apply =
+        document.createElement("button");
+
+    apply.type = "button";
+    apply.className = "next";
+    apply.textContent = "Застосувати";
+
+
+    apply.onclick = function() {
+
+        document.onmousemove = null;
+        document.onmouseup = null;
+
+        createCroppedPhoto(
+            img,
+            scale,
+            positionX,
+            positionY,
+            function(croppedImage) {
+
+                answers.photo =
+                    croppedImage;
+
+                overlay.remove();
+
+                showQuestion();
+
+            }
+        );
+
+    };
+
+
+    buttons.appendChild(cancel);
+    buttons.appendChild(apply);
+
+
+    modal.appendChild(title);
+    modal.appendChild(description);
+    modal.appendChild(cropArea);
+    modal.appendChild(controls);
+    modal.appendChild(buttons);
+
+    overlay.appendChild(modal);
+
+    document.body.appendChild(overlay);
+
+    if (img.complete) {
+    updateImage();
+} else {
+    img.onload = function() {
+        updateImage();
+    };
+}
+
+
+}
+
+
+function createCroppedPhoto(
+    img,
+    scale,
+    positionX,
+    positionY,
+    callback
+) {
+
+    var canvas = document.createElement("canvas");
+
+    var size = 600;
+
+    canvas.width = size;
+    canvas.height = size;
+
+    var ctx = canvas.getContext("2d");
+
+    var image = new Image();
+
+    image.onload = function() {
+
+        var cropSize = 320;
+
+        /*
+         * Визначаємо базовий масштаб,
+         * щоб фото повністю закривало квадрат.
+         */
+
+        var baseScale = Math.max(
+            cropSize / image.width,
+            cropSize / image.height
+        );
+
+        var finalScale =
+            baseScale * scale;
+
+        /*
+         * Розмір фото після масштабу
+         */
+
+        var displayedWidth =
+            image.width * finalScale;
+
+        var displayedHeight =
+            image.height * finalScale;
+
+        /*
+         * Початкове положення фото по центру
+         */
+
+        var left =
+            (cropSize - displayedWidth) / 2;
+
+        var top =
+            (cropSize - displayedHeight) / 2;
+
+        /*
+         * Додаємо те, наскільки
+         * користувач посунув фото.
+         */
+
+        left += positionX;
+        top += positionY;
+
+        /*
+         * Яку частину оригінального фото
+         * потрібно взяти.
+         */
+
+        var sourceX =
+            -left / finalScale;
+
+        var sourceY =
+            -top / finalScale;
+
+        var sourceWidth =
+            cropSize / finalScale;
+
+        var sourceHeight =
+            cropSize / finalScale;
+
+
+        /*
+         * Захист від виходу за межі фото
+         */
+
+        if (sourceX < 0) {
+            sourceX = 0;
+        }
+
+        if (sourceY < 0) {
+            sourceY = 0;
+        }
+
+        if (
+            sourceX + sourceWidth >
+            image.width
+        ) {
+
+            sourceWidth =
+                image.width - sourceX;
+
+        }
+
+        if (
+            sourceY + sourceHeight >
+            image.height
+        ) {
+
+            sourceHeight =
+                image.height - sourceY;
+
+        }
+
+
+        /*
+         * Малюємо обрізане фото
+         */
+
+        ctx.drawImage(
+            image,
+            sourceX,
+            sourceY,
+            sourceWidth,
+            sourceHeight,
+            0,
+            0,
+            size,
+            size
+        );
+
+
+        /*
+         * Зберігаємо як JPEG
+         */
+
+        callback(
+            canvas.toDataURL(
+                "image/jpeg",
+                0.9
+            )
+        );
+
+    };
+
+
+    image.src = img.src;
+
+}
+
+/* =========================
+   НАВІГАЦІЯ
+========================= */
+
+function addNavigation(area, allowSkip) {
+
+    var buttons = document.createElement("div");
+
+    buttons.className = "buttons";
+
+    var back = document.createElement("button");
+
+    back.className = "back";
+    back.textContent = "← Назад";
+    back.onclick = goBack;
+
+    var next = document.createElement("button");
+
+    next.className = "next";
+    next.textContent = "Далі →";
+    next.onclick = goNext;
+
+    buttons.appendChild(back);
+    buttons.appendChild(next);
+
+    area.appendChild(buttons);
+
+    if (allowSkip) {
+
+        var skipButton = document.createElement("button");
+
+        skipButton.className = "skip";
+        skipButton.textContent = "Пропустити";
+        skipButton.onclick = skip;
+
+        area.appendChild(skipButton);
+    }
+}
+
+
+/* =========================
+   ПОСАДИ
+========================= */
+
+function showPositions(area) {
+
+    var jobs = [
+        "Менеджер",
+        "Менеджер з продажу",
+        "Продавець",
+        "Адміністратор",
+        "SMM",
+        "Бухгалтер",
+        "Оператор",
+        "Дизайнер",
+        "Логіст",
+        "HR / рекрутер",
+        "Маркетолог",
+        "IT / програмування",
+        "Водій",
+        "Інше ✏️"
+    ];
+
+    for (var i = 0; i < jobs.length; i++) {
+
+        var button = document.createElement("button");
+
+        button.className = "choice";
+        button.textContent = jobs[i];
+
+        button.onclick = function() {
+
+            if (this.textContent === "Інше ✏️") {
+
+                showCustomPosition(area);
+
+            } else {
+
+                answers.position = this.textContent;
+
+                step++;
+
+                showQuestion();
+
+            }
+
+        };
+
+        area.appendChild(button);
+    }
+
+    addBackOnly(area);
+}
+
+
+function showCustomPosition(area) {
+
+    area.innerHTML = "";
+
+    var input = document.createElement("input");
+
+    input.placeholder = "Наприклад, менеджер з продажу";
+    input.value = answers.position || "";
+
+    area.appendChild(input);
+
+    var buttons = document.createElement("div");
+
+    buttons.className = "buttons";
+
+    var back = document.createElement("button");
+
+    back.className = "back";
+    back.textContent = "← Назад";
+
+    back.onclick = function() {
+        showQuestion();
+    };
+
+    var next = document.createElement("button");
+
+    next.className = "next";
+    next.textContent = "Продовжити →";
+
+    next.onclick = function() {
+
+        if (!input.value.trim()) {
+            input.focus();
+            return;
+        }
+
+        answers.position = input.value.trim();
+
+        step++;
+
+        showQuestion();
+    };
+
+    buttons.appendChild(back);
+    buttons.appendChild(next);
+
+    area.appendChild(buttons);
+}
+
+
+/* =========================
+   ДОСВІД
+========================= */
+
+function showExperience(area) {
+
+    var options = [
+        "Так, маю досвід",
+        "Ні, це моя перша робота",
+        "Є невеликий досвід / підробітки"
+    ];
+
+    for (var i = 0; i < options.length; i++) {
+
+        var button = document.createElement("button");
+
+        button.className = "choice";
+        button.textContent = options[i];
+
+        button.onclick = function() {
+
+            if (this.textContent === "Так, маю досвід") {
+                detailedExperience(area);
+            }
+
+            else if (
+                this.textContent ===
+                "Є невеликий досвід / підробітки"
+            ) {
+                smallExperience(area);
+            }
+
+            else {
+
+                answers.experience = "Без досвіду";
+
+                step++;
+
+                showQuestion();
+
+            }
+
+        };
+
+        area.appendChild(button);
+    }
+
+    addBackOnly(area);
+}
+
+
+function detailedExperience(area) {
+
+    area.innerHTML = "";
+
+    var company = document.createElement("input");
+    company.placeholder = "Назва компанії";
+    company.value =
+        answers.experience && answers.experience.company
+            ? answers.experience.company
+            : "";
+
+    var position = document.createElement("input");
+    position.placeholder = "Посада";
+    position.value =
+        answers.experience && answers.experience.position
+            ? answers.experience.position
+            : "";
+
+    var period = document.createElement("input");
+    period.placeholder = "Роки роботи, наприклад 2022–2025";
+    period.value =
+        answers.experience && answers.experience.period
+            ? answers.experience.period
+            : "";
+
+    var duties = document.createElement("textarea");
+    duties.placeholder = "Що ти робила на цій роботі?";
+    duties.value =
+        answers.experience && answers.experience.duties
+            ? answers.experience.duties
+            : "";
+
+    area.appendChild(company);
+    area.appendChild(position);
+    area.appendChild(period);
+    area.appendChild(duties);
+
+    var buttons = document.createElement("div");
+
+    buttons.className = "buttons";
+
+    var back = document.createElement("button");
+
+    back.className = "back";
+    back.textContent = "← Назад";
+
+    back.onclick = function() {
+        showQuestion();
+    };
+
+    var next = document.createElement("button");
+
+    next.className = "next";
+    next.textContent = "Продовжити →";
+
+    next.onclick = function() {
+
+        answers.experience = {
+            type: "Досвід роботи",
+            company: company.value.trim(),
+            position: position.value.trim(),
+            period: period.value.trim(),
+            duties: duties.value.trim()
+        };
+
+        step++;
+
+        showQuestion();
+    };
+
+    buttons.appendChild(back);
+    buttons.appendChild(next);
+
+    area.appendChild(buttons);
+}
+
+
+function smallExperience(area) {
+
+    area.innerHTML = "";
+
+    var textarea = document.createElement("textarea");
+
+    textarea.placeholder =
+        "Наприклад: підробляла продавцем, допомагала вести Instagram...";
+
+    if (
+        answers.experience &&
+        answers.experience.description
+    ) {
+        textarea.value =
+            answers.experience.description;
+    }
+
+    area.appendChild(textarea);
+
+    var buttons = document.createElement("div");
+
+    buttons.className = "buttons";
+
+    var back = document.createElement("button");
+
+    back.className = "back";
+    back.textContent = "← Назад";
+
+    back.onclick = function() {
+        showQuestion();
+    };
+
+    var next = document.createElement("button");
+
+    next.className = "next";
+    next.textContent = "Продовжити →";
+
+    next.onclick = function() {
+
+        answers.experience = {
+            type: "Невеликий досвід",
+            description: textarea.value.trim()
+        };
+
+        step++;
+
+        showQuestion();
+    };
+
+    buttons.appendChild(back);
+    buttons.appendChild(next);
+
+    area.appendChild(buttons);
+}
+
+function showEducation(area) {
+
+area.innerHTML = "";
+
+    var options = [
+        {
+            name: "Вища",
+            icon:
+                '<svg viewBox="0 0 24 24">' +
+                '<path d="M3 9l9-5 9 5-9 5-9-5z"></path>' +
+                '<path d="M7 11v5c2 2 8 2 10 0v-5"></path>' +
+                '<path d="M21 9v6"></path>' +
+                '</svg>'
+        },
+        {
+            name: "Незакінчена вища",
+            icon:
+                '<svg viewBox="0 0 24 24">' +
+                '<path d="M3 9l9-5 9 5-9 5-9-5z"></path>' +
+                '<path d="M7 11v4"></path>' +
+                '<path d="M17 11v4"></path>' +
+                '<path d="M9 18h6"></path>' +
+                '</svg>'
+        },
+        {
+            name: "Середня спеціальна",
+            icon:
+                '<svg viewBox="0 0 24 24">' +
+                '<rect x="4" y="4" width="16" height="16" rx="2"></rect>' +
+                '<path d="M8 8h8"></path>' +
+                '<path d="M8 12h5"></path>' +
+                '<path d="M8 16h3"></path>' +
+                '</svg>'
+        },
+        {
+            name: "Середня",
+            icon:
+                '<svg viewBox="0 0 24 24">' +
+                '<path d="M4 5h16v14H4z"></path>' +
+                '<path d="M8 9h8"></path>' +
+                '<path d="M8 13h6"></path>' +
+                '</svg>'
+        },
+        {
+            name: "Без освіти",
+            icon:
+                '<svg viewBox="0 0 24 24">' +
+                '<circle cx="12" cy="12" r="8"></circle>' +
+                '<path d="M8 8l8 8"></path>' +
+                '<path d="M16 8l-8 8"></path>' +
+                '</svg>'
+        }
+    ];
+
+    for (var i = 0; i < options.length; i++) {
+
+        var button = document.createElement("button");
+
+        button.className = "choice";
+
+        button.innerHTML =
+            '<span class="choice-icon">' +
+            options[i].icon +
+            '</span>' +
+            '<span>' +
+            options[i].name +
+            '</span>';
+
+        button.onclick = (function(educationName) {
+
+            return function() {
+
+                answers.educationLevel = educationName;
+
+                if (educationName === "Без освіти") {
+
+                    answers.education = "Без освіти";
+
+                    step++;
+
+                    showQuestion();
+
+                } else {
+
+
+    educationDetails(area);
+
+}
+
+            };
+
+        })(options[i].name);
+
+        area.appendChild(button);
+    }
+
+    addBackOnly(area);
+}
+
+function educationDetails(area) {
+
+    area.innerHTML = "";
+
+    var title = document.createElement("h1");
+    title.textContent = "Розкажи про освіту";
+
+    var description = document.createElement("p");
+    description.className = "description";
+    description.textContent =
+        "Заповни інформацію про навчання.";
+
+    area.appendChild(title);
+    area.appendChild(description);
+
+
+    /* НАВЧАЛЬНИЙ ЗАКЛАД */
+
+    var institutionLabel = document.createElement("div");
+    institutionLabel.className = "field-label";
+    institutionLabel.textContent = "Навчальний заклад";
+
+    var institution = document.createElement("input");
+    institution.className = "input";
+    institution.type = "text";
+    institution.placeholder =
+        "Назва навчального закладу";
+    institution.value =
+        answers.educationInstitution || "";
+
+    area.appendChild(institutionLabel);
+    area.appendChild(institution);
+
+
+    /* СПЕЦІАЛЬНІСТЬ */
+
+    var specialtyLabel = document.createElement("div");
+    specialtyLabel.className = "field-label";
+    specialtyLabel.textContent = "Спеціальність";
+
+    var specialty = document.createElement("input");
+    specialty.className = "input";
+    specialty.type = "text";
+    specialty.placeholder =
+        "Наприклад: Менеджмент";
+    specialty.value =
+        answers.educationSpecialty || "";
+
+    area.appendChild(specialtyLabel);
+    area.appendChild(specialty);
+
+
+    /* РІК ПОЧАТКУ */
+
+    var startLabel = document.createElement("div");
+    startLabel.className = "field-label";
+    startLabel.textContent = "Рік початку навчання";
+
+    var startYear = document.createElement("input");
+    startYear.className = "input";
+    startYear.type = "text";
+    startYear.placeholder =
+        "Наприклад: 2020";
+    startYear.value =
+        answers.educationStart || "";
+
+    area.appendChild(startLabel);
+    area.appendChild(startYear);
+
+
+    /* РІК ЗАКІНЧЕННЯ */
+
+    var endLabel = document.createElement("div");
+    endLabel.className = "field-label";
+    endLabel.textContent = "Рік закінчення навчання";
+
+    var endYear = document.createElement("input");
+    endYear.className = "input";
+    endYear.type = "text";
+    endYear.placeholder =
+        "Наприклад: 2024";
+    endYear.value =
+        answers.educationEnd || "";
+
+    area.appendChild(endLabel);
+    area.appendChild(endYear);
+
+
+    /* КНОПКИ */
+
+    var buttons = document.createElement("div");
+    buttons.className = "buttons";
+
+
+    var back = document.createElement("button");
+    back.className = "back";
+    back.textContent = "← Назад";
+
+    back.onclick = function() {
+        showEducation(area);
+    };
+
+
+    var next = document.createElement("button");
+    next.className = "next";
+    next.textContent = "Далі →";
+
+    next.onclick = function() {
+
+        answers.educationInstitution =
+            institution.value.trim();
+
+        answers.educationSpecialty =
+            specialty.value.trim();
+
+        answers.educationStart =
+            startYear.value.trim();
+
+        answers.educationEnd =
+            endYear.value.trim();
+
+
+        if (
+            !answers.educationInstitution ||
+            !answers.educationSpecialty ||
+            !answers.educationStart ||
+            !answers.educationEnd
+        ) {
+
+            alert("Будь ласка, заповни всі поля.");
+
+            return;
+        }
+
+
+        answers.education =
+            answers.educationInstitution +
+            ", " +
+            answers.educationSpecialty +
+            ", " +
+            answers.educationStart +
+            "–" +
+            answers.educationEnd;
+
+
+        step++;
+
+        showQuestion();
+    };
+
+
+    buttons.appendChild(back);
+    buttons.appendChild(next);
+
+    area.appendChild(buttons);
+}
+
+/* =========================
+   НАВИЧКИ
+========================= */
+
+function showSkills(area) {
+
+    var categories = {
+
+        "💻 Офіс та цифрові інструменти": [
+            "Microsoft Word",
+            "Microsoft Excel",
+            "PowerPoint",
+            "Google Docs",
+            "Google Sheets",
+            "Google Workspace",
+            "Canva",
+            "Figma",
+            "CRM",
+            "Power BI"
+        ],
+
+        "🤝 Клієнти та продажі": [
+            "Робота з клієнтами",
+            "Клієнтський сервіс",
+            "Активні продажі",
+            "Холодні дзвінки",
+            "Консультація клієнтів",
+            "Робота із запереченнями",
+            "Ведення переговорів",
+            "CRM",
+            "Upselling",
+            "Cross-selling"
+        ],
+
+        "📊 Менеджмент та організація": [
+            "Управління командою",
+            "Постановка задач",
+            "Контроль виконання",
+            "Планування",
+            "Тайм-менеджмент",
+            "Організація процесів",
+            "Управління проєктами",
+            "Ведення документації",
+            "Організація зустрічей",
+            "Робота з KPI"
+        ],
+
+        "📱 Digital та маркетинг": [
+            "SMM",
+            "Instagram",
+            "TikTok",
+            "Facebook",
+            "Meta Ads",
+            "Google Ads",
+            "Контент-менеджмент",
+            "Копірайтинг",
+            "Email-маркетинг",
+            "Google Analytics"
+        ],
+
+        "📈 Аналітика": [
+            "Аналіз даних",
+            "Підготовка звітів",
+            "Робота з таблицями",
+            "Зведені таблиці",
+            "Аналіз KPI",
+            "Фінансова аналітика",
+            "Power BI"
+        ],
+
+        "🧠 Особисті професійні навички": [
+            "Комунікабельність",
+            "Відповідальність",
+            "Уважність до деталей",
+            "Критичне мислення",
+            "Швидке навчання",
+            "Стресостійкість",
+            "Самоорганізація",
+            "Командна робота",
+            "Лідерство",
+            "Вирішення проблем"
+        ]
+
+    };
+
+    var selected = answers.skills || [];
+
+    var count = document.createElement("div");
+
+    count.className = "selected-count";
+
+    area.appendChild(count);
+
+    function updateCount() {
+
+        count.textContent =
+            "Обрано навичок: " +
+            selected.length;
+
+    }
+
+    for (var category in categories) {
+
+        var title =
+    document.createElement("div");
+
+title.className =
+    "category-title";
+
+var icon = "";
+
+if (category.indexOf("Офіс") !== -1) {
+
+    icon =
+        '<svg viewBox="0 0 24 24">' +
+        '<rect x="4" y="5" width="16" height="12" rx="2"></rect>' +
+        '<path d="M8 21h8"></path>' +
+        '<path d="M12 17v4"></path>' +
+        '</svg>';
+
+} else if (category.indexOf("Клієнти") !== -1) {
+
+    icon =
+        '<svg viewBox="0 0 24 24">' +
+        '<circle cx="9" cy="8" r="3"></circle>' +
+        '<path d="M3 19c.5-3 2.5-5 6-5"></path>' +
+        '<path d="M15 8h6"></path>' +
+        '<path d="M18 5v6"></path>' +
+        '</svg>';
+
+} else if (category.indexOf("Менеджмент") !== -1) {
+
+    icon =
+        '<svg viewBox="0 0 24 24">' +
+        '<rect x="4" y="4" width="6" height="6" rx="1"></rect>' +
+        '<rect x="14" y="14" width="6" height="6" rx="1"></rect>' +
+        '<path d="M10 7h4v10"></path>' +
+        '<path d="M14 17h-4v-3"></path>' +
+        '</svg>';
+
+} else if (category.indexOf("Digital") !== -1) {
+
+    icon =
+        '<svg viewBox="0 0 24 24">' +
+        '<rect x="7" y="3" width="10" height="18" rx="2"></rect>' +
+        '<path d="M10 6h4"></path>' +
+        '<circle cx="12" cy="18" r="1"></circle>' +
+        '</svg>';
+
+} else if (category.indexOf("Аналітика") !== -1) {
+
+    icon =
+        '<svg viewBox="0 0 24 24">' +
+        '<path d="M4 19V5"></path>' +
+        '<path d="M4 19h16"></path>' +
+        '<path d="M7 15l4-4 3 2 5-6"></path>' +
+        '</svg>';
+
+} else if (category.indexOf("Особисті") !== -1) {
+
+    icon =
+        '<svg viewBox="0 0 24 24">' +
+        '<circle cx="12" cy="8" r="3"></circle>' +
+        '<path d="M5 20c.8-4 3-6 7-6s6.2 2 7 6"></path>' +
+        '</svg>';
+}
+
+title.innerHTML =
+    '<span class="category-icon">' +
+    icon +
+    '</span>' +
+    '<span>' +
+    category
+        .replace("💻 ", "")
+        .replace("🤝 ", "")
+        .replace("📊 ", "")
+        .replace("📱 ", "")
+        .replace("📈 ", "")
+        .replace("🧠 ", "") +
+    '</span>';
+
+area.appendChild(title);
+
+        var grid =
+            document.createElement("div");
+
+        grid.className =
+            "skill-grid";
+
+        var list =
+            categories[category];
+
+        for (var i = 0; i < list.length; i++) {
+
+            var button =
+                document.createElement("button");
+
+            button.className =
+                "skill-button";
+
+            button.textContent =
+                list[i];
+
+            if (
+                selected.indexOf(list[i]) !== -1
+            ) {
+
+                button.classList.add("selected");
+
+            }
+
+            button.onclick =
+                function() {
+
+                    var skill =
+                        this.textContent;
+
+                    var index =
+                        selected.indexOf(skill);
+
+                    if (index !== -1) {
+
+                        selected.splice(index, 1);
+
+                        this.classList.remove("selected");
+
+                    } else {
+
+                        selected.push(skill);
+
+                        this.classList.add("selected");
+
+                    }
+
+                    updateCount();
+
+                };
+
+            grid.appendChild(button);
+        }
+
+        area.appendChild(grid);
+    }
+
+    updateCount();
+
+    var buttons =
+        document.createElement("div");
+
+    buttons.className =
+        "buttons";
+
+    var back =
+        document.createElement("button");
+
+    back.className =
+        "back";
+
+    back.textContent =
+        "← Назад";
+
+    back.onclick =
+        goBack;
+
+    var next =
+        document.createElement("button");
+
+    next.className =
+        "next";
+
+    next.textContent =
+        "Далі →";
+
+    next.onclick =
+        function() {
+
+            answers.skills =
+                selected;
+
+            step++;
+
+            showQuestion();
+
+        };
+
+    buttons.appendChild(back);
+    buttons.appendChild(next);
+
+    area.appendChild(buttons);
+}
+
+
+/* =========================
+   ПРОФЕСІЙНИЙ КОЗИР
+========================= */
+
+function showProfessionalStrength(area) {
+
+var options = [
+
+    {
+        title: "◉ Результат",
+        text: "Орієнтуюся на конкретний результат і виконання цілей."
+    },
+
+    {
+        title: "◌ Комунікація",
+        text: "Добре знаходжу спільну мову з клієнтами та командою."
+    },
+
+    {
+        title: "↗ Розвиток",
+        text: "Швидко навчаюся та прагну професійно розвиватися."
+    },
+
+    {
+        title: "⌕ Аналітика",
+        text: "Вмію аналізувати інформацію та знаходити рішення."
+    },
+
+    {
+        title: "☷ Організація",
+        text: "Добре організовую роботу та доводжу завдання до кінця."
+    },
+
+    {
+        title: "◇ Ініціативність",
+        text: "Не боюся пропонувати нові ідеї та брати відповідальність."
+    },
+
+    {
+        title: "△ Лідерство",
+        text: "Можу організувати людей і взяти на себе відповідальність."
+    }
+
+];
+
+    for (var i = 0; i < options.length; i++) {
+
+        var button = document.createElement("button");
+
+        button.className = "choice professional-strength-choice";
+
+        button.innerHTML =
+            '<strong>' +
+            options[i].title +
+            '</strong>' +
+            '<span>' +
+            options[i].text +
+            '</span>';
+
+        (function(option) {
+
+            button.onclick = function() {
+
+                answers.professionalStrength =
+                    option.text;
+
+                step++;
+
+                showQuestion();
+
+            };
+
+        })(options[i]);
+
+        area.appendChild(button);
+    }
+
+    addBackOnly(area);
+}
+
+/* =========================
+   ВИБІР
+========================= */
+
+function showChoice(area, options, id) {
+
+    for (var i = 0; i < options.length; i++) {
+
+        var button =
+            document.createElement("button");
+
+        button.className =
+            "choice";
+
+        button.textContent =
+            options[i];
+
+        if (
+            answers[id] === options[i]
+        ) {
+
+            button.classList.add("selected");
+
+        }
+
+        button.onclick =
+            function() {
+
+                answers[id] =
+                    this.textContent;
+
+                step++;
+
+                showQuestion();
+
+            };
+
+        area.appendChild(button);
+    }
+
+    addBackOnly(area);
+}
+
+
+/* =========================
+   МНОЖИННИЙ ВИБІР
+========================= */
+
+function showMulti(area, options, id) {
+
+    var selected =
+        answers[id] || [];
+
+    for (var i = 0; i < options.length; i++) {
+
+        var button =
+            document.createElement("button");
+
+        button.className =
+            "choice";
+
+        button.textContent =
+            options[i];
+
+        if (
+            selected.indexOf(options[i]) !== -1
+        ) {
+
+            button.classList.add("selected");
+
+        }
+
+        button.onclick =
+            function() {
+
+                var value =
+                    this.textContent;
+
+                var index =
+                    selected.indexOf(value);
+
+                if (index !== -1) {
+
+                    selected.splice(index, 1);
+
+                    this.classList.remove("selected");
+
+                } else {
+
+                    selected.push(value);
+
+                    this.classList.add("selected");
+
+                }
+
+            };
+
+        area.appendChild(button);
+    }
+
+    var buttons =
+        document.createElement("div");
+
+    buttons.className =
+        "buttons";
+
+    var back =
+        document.createElement("button");
+
+    back.className =
+        "back";
+
+    back.textContent =
+        "← Назад";
+
+    back.onclick =
+        goBack;
+
+    var next =
+        document.createElement("button");
+
+    next.className =
+        "next";
+
+    next.textContent =
+        "Далі →";
+
+    next.onclick =
+        function() {
+
+            answers[id] =
+                selected;
+
+            step++;
+
+            showQuestion();
+
+        };
+
+    buttons.appendChild(back);
+    buttons.appendChild(next);
+
+    area.appendChild(buttons);
+}
+
+
+/* =========================
+   НАЗАД
+========================= */
+
+function addBackOnly(area) {
+
+    var back =
+        document.createElement("button");
+
+    back.className =
+        "back";
+
+    back.textContent =
+        "← Назад";
+
+    back.style.marginTop =
+        "10px";
+
+    back.onclick =
+        goBack;
+
+    area.appendChild(back);
+}
+
+
+/* =========================
+   ДАЛІ
+========================= */
+
+function goNext() {
+
+    var q =
+        questions[step];
+
+    var input =
+        document.getElementById("currentInput");
+
+    if (input) {
+
+        answers[q.id] =
+            input.value.trim();
+
+    }
+
+    if (
+        step <
+        questions.length - 1
+    ) {
+
+        step++;
+
+        showQuestion();
+
+    } else {
+
+        showResult();
+
+    }
+}
+
+
+/* =========================
+   НАЗАД
+========================= */
+
+function goBack() {
+
+    // Якщо зараз відкритий перегляд резюме
+    if (document.getElementById("resumeContainer")) {
+        showReview();
+        return;
+    }
+
+    // Якщо зараз на перевірці даних
+    if (document.querySelector(".review")) {
+        step = questions.length - 1;
+        showQuestion();
+        return;
+    }
+
+    // Звичайне повернення між питаннями
+    if (step > 0) {
+
+        step--;
+
+        showQuestion();
+
+    } else {
+
+        showPackageSelection();
+
+    }
+
+}
+
+
+/* =========================
+   ПРОПУСТИТИ
+========================= */
+
+function skip() {
+
+    var q =
+        questions[step];
+
+    answers[q.id] = "";
+
+    if (
+        step <
+        questions.length - 1
+    ) {
+
+        step++;
+
+        showQuestion();
+
+    } else {
+
+        showResult();
+
+    }
+
+}
+
+
+/* =========================
+   ПРОГРЕС
+========================= */
+
+function updateProgress() {
+
+    var percent =
+        ((step + 1) /
+        questions.length) *
+        100;
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        percent + "%";
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        "Крок " +
+        (step + 1) +
+        " із " +
+        questions.length;
+
+}
+
+
+/* =========================
+   ЗАВЕРШЕННЯ
+========================= */
+
+function showResult() {
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        "100%";
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        "Готово";
+
+    var box =
+        document.getElementById("box");
+
+    box.innerHTML =
+        '<div class="success">' +
+        '<div class="success-icon">' +
+    '<svg viewBox="0 0 24 24">' +
+        '<path d="M5 12l4 4L19 6"></path>' +
+    '</svg>' +
+'</div>' +
+        '<h1>Анкету завершено!</h1>' +
+        '<p class="description">' +
+        'Тепер перевір свої дані перед створенням резюме.' +
+        '</p>' +
+        '<button class="next" onclick="showReview()">' +
+        'Перевірити дані →' +
+        '</button>' +
+        '</div>';
+
+
+}
+
+
+/* =========================
+   ПЕРЕВІРКА
+========================= */
+
+function showReview() {
+
+    var box =
+        document.getElementById("box");
+
+    var html = "";
+
+    html +=
+        "<h1>Перевір свої дані</h1>";
+
+    html +=
+        '<p class="description">' +
+        "Якщо все правильно — підтверджуй." +
+        "</p>";
+
+    html += review("Ім'я", answers.name);
+
+    html += review("Бажана посада", answers.position);
+
+    html += review("Досвід", formatExperience());
+
+    html += review("Освіта", formatEducation());
+
+    html += review(
+        "Навички",
+        answers.skills
+            ? answers.skills.join(", ")
+            : ""
+    );
+
+    html += review("Місто", answers.location);
+
+    html += review("Email", answers.email);
+
+    html += review(
+    "Телефон",
+    answers.phone
+   
+    );
+
+    html += review(
+        "Фото",
+        answers.photo
+            ? "Фото додано 📸"
+            : "Фото не додано"
+    );
+
+
+    if (
+        packageType === "pro" ||
+        packageType === "max"
+    ) {
+
+        html += review(
+            "Про себе",
+            answers.about
+        );
+
+        html += review(
+            "Досягнення",
+            answers.achievements
+        );
+
+        html += review(
+            "Професійний козир",
+            answers.professionalStrength
+        );
+
+        html += review(
+            "Мови",
+            answers.languages
+        );
+
+        html += review(
+            "Для супровідного листа",
+            answers.cover
+        );
+
+    }
+
+
+    if (packageType === "max") {
+
+        html += review(
+            "Зарплата",
+            answers.salary
+        );
+
+        html += review(
+            "Тип зайнятості",
+            answers.employment
+                ? answers.employment.join(", ")
+                : ""
+        );
+
+        html += review(
+            "Формат роботи",
+            answers.workFormat
+        );
+
+        html += review(
+            "Вакансія 1",
+            answers.vacancy1
+        );
+
+        html += review(
+            "Вакансія 2",
+            answers.vacancy2
+        );
+
+    }
+
+
+    html +=
+        '<div class="buttons">' +
+        '<button class="back" onclick="goBack()">' +
+        '← Назад' +
+        '</button>' +
+        '<button class="next" onclick="finish()">' +
+        'Все правильно →' +
+        '</button>' +
+        '</div>';
+
+    box.innerHTML =
+        html;
+
+}
+
+
+/* =========================
+   ФОРМАТ ДОСВІДУ
+========================= */
+
+function formatExperience() {
+
+    if (!answers.experience) {
+        return "";
+    }
+
+    if (
+        typeof answers.experience === "string"
+    ) {
+
+        return answers.experience;
+
+    }
+
+    var e =
+        answers.experience;
+
+    return (
+        (e.type || "") +
+        "<br>" +
+        (e.company || "") +
+        "<br>" +
+        (e.position || "") +
+        "<br>" +
+        (e.period || "") +
+        "<br>" +
+        (e.duties || e.description || "")
+    );
+
+}
+
+
+/* =========================
+   ФОРМАТ ОСВІТИ
+========================= */
+
+function formatEducation() {
+
+    if (!answers.education) {
+
+        return (
+            answers.educationLevel ||
+            ""
+        );
+
+    }
+
+    if (
+        typeof answers.education === "string"
+    ) {
+
+        return answers.education;
+
+    }
+
+    var e =
+        answers.education;
+
+    return (
+        (e.level || "") +
+        "<br>" +
+        (e.institution || "") +
+        "<br>" +
+        (e.specialty || "") +
+        "<br>" +
+        (e.years || "")
+    );
+
+}
+
+
+/* =========================
+   РЯДОК ПЕРЕВІРКИ
+========================= */
+
+function review(title, value) {
+
+    if (!value) {
+        value = "Не вказано";
+    }
+
+    return (
+        '<div class="review">' +
+        '<div class="review-title">' +
+        title +
+        '</div>' +
+        '<div class="review-value">' +
+        value +
+        '</div>' +
+        '</div>'
+    );
+
+}
+
+
+/* =====================================================
+   ПРЕВ'Ю РЕЗЮМЕ
+===================================================== */
+
+var selectedTemplate = "modern";
+
+
+function finish() {
+
+    document.getElementById("progressBar").style.width = "100%";
+    document.getElementById("progressText").textContent = "Готово";
+
+    showResumePreview();
+
+}
+
+
+/* =========================
+   ЗАГАЛЬНЕ ПРЕВ'Ю
+========================= */
+
+function showResumePreview() {
+
+    var box = document.getElementById("box");
+
+    var photoHtml = answers.photo
+        ? '<img src="' + answers.photo + '" class="resume-photo">'
+        : '<div class="resume-no-photo">👤</div>';
+
+    var name =
+        answers.name || "Твоє ім'я";
+
+    var position =
+        answers.position || "Бажана посада";
+
+    var location =
+        answers.location || "Місто";
+
+    var email =
+        answers.email || "email@example.com";
+
+    var about =
+        answers.about ||
+        "Професійний кандидат, орієнтований на розвиток, якісне виконання роботи та досягнення результату.";
+
+    var skills =
+        answers.skills || [];
+
+
+    var skillsHtml = "";
+
+    if (skills.length > 0) {
+
+        for (var i = 0; i < skills.length; i++) {
+
+            skillsHtml +=
+                '<span class="modern-skill">' +
+                skills[i] +
+                '</span>';
+
+        }
+
+    } else {
+
+        skillsHtml =
+            '<span class="modern-text">Навички будуть оформлені у готовому резюме.</span>';
+
+    }
+
+
+    var experience =
+        createExperiencePreview();
+
+    var education =
+        createEducationPreview();
+
+
+    box.innerHTML =
+
+        '<div class="preview-wrapper">' +
+
+        '<div class="success">' +
+
+        '<div class="success-icon">' +
+    '<svg viewBox="0 0 24 24">' +
+        '<path d="M5 12l4 4L19 6"></path>' +
+    '</svg>' +
+'</div>' +
+
+        '<h1>Ось як виглядатиме твоє резюме</h1>' +
+
+        '<p class="description">' +
+        'Ми вже перетворили твої відповіді на професійне CV.' +
+        '</p>' +
+
+        '</div>' +
+'<button class="back" onclick="goBack()">' +
+'← Назад' +
+'</button>' +
+
+
+        '<div class="template-title">' +
+        'Обери стиль резюме:' +
+        '</div>' +
+
+        '<div class="template-buttons">' +
+
+        '<button class="template-button selected" id="template-modern" onclick="changeTemplate(\'modern\')">' +
+        'Modern' +
+        '</button>' +
+
+        '<button class="template-button" id="template-minimal" onclick="changeTemplate(\'minimal\')">' +
+        'Minimal' +
+        '</button>' +
+
+        '<button class="template-button" id="template-creative" onclick="changeTemplate(\'creative\')">' +
+        'Creative' +
+        '</button>' +
+
+        '</div>' +
+
+
+        '<div id="resumeContainer">' +
+
+        createModernResume(
+            photoHtml,
+            name,
+            position,
+            location,
+            email,
+            about,
+            skillsHtml,
+            experience,
+            education
+        ) +
+
+        '</div>' +
+
+
+        '<div class="preview-note">' +
+
+        '<b>Твоє резюме готове на 90%</b>' +
+
+        '<br><br>' +
+
+        'Це персональне прев’ю на основі твоїх відповідей. ' +
+        'Після оформлення ти отримаєш повний професійний PDF без водяного знака.' +
+
+        '</div>' +
+
+
+        '<div class="preview-price">' +
+
+        'Пакет: <b>' +
+        packageNames[packageType] +
+        '</b> · <b>' +
+        packagePrices[packageType] +
+        ' грн</b>' +
+
+        '</div>' +
+
+'<button class="back" onclick="goBack()">' +
+'← Назад' +
+'</button>' +
+
+        '<button class="buy-button" onclick="startPayment()">' +
+        'Отримати готове резюме →' +
+        '</button>' +
+
+        '</div>';
+
+}
+
+
+/* =========================
+   ДОСВІД
+========================= */
+
+function createExperiencePreview() {
+
+    if (!answers.experience) {
+
+        return (
+            '<div class="modern-text">' +
+            'Професійний шлях буде оформлено у готовому резюме.' +
+            '</div>'
+        );
+
+    }
+
+    if (typeof answers.experience === "string") {
+
+        return (
+            '<div class="modern-text preview-blur">' +
+            answers.experience +
+            '</div>'
+        );
+
+    }
+
+    var e = answers.experience;
+
+    return (
+
+        '<div class="modern-text preview-blur">' +
+
+        '<b>' +
+        (e.position || "Посада") +
+        '</b>' +
+
+        '<br>' +
+
+        (e.company || "Компанія") +
+
+        ' · ' +
+
+        (e.period || "") +
+
+        '<br><br>' +
+
+        (e.duties ||
+        e.description ||
+        "Опис досвіду буде професійно оформлено.") +
+
+        '</div>'
+
+    );
+
+}
+
+
+/* =========================
+   ОСВІТА
+========================= */
+
+function createEducationPreview() {
+
+    if (!answers.education) {
+
+        return (
+            '<div class="modern-text">' +
+            (answers.educationLevel || "Освіта") +
+            '</div>'
+        );
+
+    }
+
+    if (typeof answers.education === "string") {
+
+        return (
+            '<div class="modern-text">' +
+            answers.education +
+            '</div>'
+        );
+
+    }
+
+    var e = answers.education;
+
+    return (
+
+        '<div class="modern-text preview-blur">' +
+
+        '<b>' +
+        (e.specialty || "Спеціальність") +
+        '</b>' +
+
+        '<br>' +
+
+        (e.institution || "Навчальний заклад") +
+
+        '<br>' +
+
+        (e.years || "") +
+
+        '</div>'
+
+    );
+
+}
+
+
+/* =====================================================
+   MODERN
+===================================================== */
+
+function createModernResume(
+    photoHtml,
+    name,
+    position,
+    location,
+    email,
+    about,
+    skillsHtml,
+    experience,
+    education
+) {
+
+    return (
+
+        '<div class="resume-preview resume-modern">' +
+
+        '<div class="resume-watermark">' +
+        'CVly' +
+        '</div>' +
+
+        '<div class="resume-paper">' +
+
+        '<div class="modern-top">' +
+
+        photoHtml +
+
+        '<div>' +
+
+        '<div class="modern-name">' +
+        name +
+        '</div>' +
+
+        '<div class="modern-position">' +
+        position +
+        '</div>' +
+
+        '<div class="modern-contact">' +
+
+        '<div class="resume-contact-item">' +
+
+        '<svg viewBox="0 0 24 24">' +
+        '<path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"></path>' +
+        '<circle cx="12" cy="10" r="2.5"></circle>' +
+        '</svg>' +
+
+        '<span>' +
+        location +
+        '</span>' +
+
+        '</div>' +
+
+        '<div class="resume-contact-item">' +
+
+        '<svg viewBox="0 0 24 24">' +
+        '<rect x="3" y="5" width="18" height="14" rx="2"></rect>' +
+        '<path d="M4 7l8 6 8-6"></path>' +
+        '</svg>' +
+
+        '<span>' +
+        email +
+        '</span>' +
+
+        '</div>' +
+
+        '<div class="resume-contact-item">' +
+
+        '<svg viewBox="0 0 24 24">' +
+        '<path d="M7 4l3 1-1.5 4-2-.5c1 2.5 2.5 4 5 5l.5-2 4 1 1 3c.3 1-.4 2-1.4 2C9 17.5 6.5 15 5 12S3.5 7 4 5.5C4.3 4.5 5.5 3.7 7 4z"></path>' +
+        '</svg>' +
+
+        '<span>' +
+        (answers.phone || "Телефон") +
+        '</span>' +
+
+        '</div>' +
+
+        '</div>' +
+
+        '</div>' +
+
+        '</div>' +
+
+
+        '<div class="modern-section">' +
+
+        '<div class="modern-title">' +
+        'Професійний профіль' +
+        '</div>' +
+
+        '<div class="modern-text preview-blur">' +
+        about +
+        '</div>' +
+
+        '</div>' +
+
+
+        '<div class="modern-columns">' +
+
+        '<div>' +
+
+        '<div class="modern-section">' +
+
+        '<div class="modern-title">' +
+        'Досвід роботи' +
+        '</div>' +
+
+        experience +
+
+        '</div>' +
+
+
+        '<div class="modern-section">' +
+
+        '<div class="modern-title">' +
+        'Освіта' +
+        '</div>' +
+
+        education +
+
+        '</div>' +
+
+        '</div>' +
+
+
+        '<div>' +
+
+        '<div class="modern-section">' +
+
+        '<div class="modern-title">' +
+        'Ключові навички' +
+        '</div>' +
+
+        '<div>' +
+        skillsHtml +
+        '</div>' +
+
+        '</div>' +
+
+
+        createProPreview() +
+
+        '</div>' +
+
+        '</div>' +
+
+        '</div>' +
+
+        '</div>'
+
+    );
+
+}
+
+
+/* =====================================================
+   MINIMAL
+===================================================== */
+
+function createMinimalResume() {
+
+    var photoHtml = answers.photo
+        ? '<img src="' + answers.photo + '" class="resume-photo minimal-photo">'
+        : '<div class="resume-no-photo minimal-photo">' +
+            '<svg viewBox="0 0 24 24">' +
+                '<circle cx="12" cy="8" r="3.5"></circle>' +
+                '<path d="M5 20c.8-4 3-6 7-6s6.2 2 7 6"></path>' +
+            '</svg>' +
+          '</div>';
+
+    var skills = answers.skills || [];
+
+    var skillsHtml = "";
+
+    for (var i = 0; i < skills.length; i++) {
+
+        skillsHtml +=
+            '<span class="minimal-skill">' +
+            skills[i] +
+            '</span>';
+
+    }
+
+    return (
+
+        '<div class="resume-preview resume-minimal">' +
+
+        '<div class="resume-watermark">' +
+        'CVly' +
+        '</div>' +
+
+        '<div class="resume-paper">' +
+
+        '<div class="minimal-header">' +
+
+        '<div class="minimal-photo-wrap">' +
+        photoHtml +
+        '</div>' +
+
+        '<div class="minimal-header-info">' +
+
+        '<div class="minimal-name">' +
+        (answers.name || "Твоє ім'я") +
+        '</div>' +
+
+        '<div class="minimal-position">' +
+        (answers.position || "Бажана посада") +
+        '</div>' +
+
+        '<div class="minimal-contact">' +
+
+        '<span class="minimal-contact-item">' +
+
+        '<svg viewBox="0 0 24 24">' +
+        '<path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"></path>' +
+        '<circle cx="12" cy="10" r="2.5"></circle>' +
+        '</svg>' +
+
+        (answers.location || "Місто") +
+
+        '</span>' +
+
+        '<span class="minimal-contact-item">' +
+
+        '<svg viewBox="0 0 24 24">' +
+        '<rect x="3" y="5" width="18" height="14" rx="2"></rect>' +
+        '<path d="M4 7l8 6 8-6"></path>' +
+        '</svg>' +
+
+        (answers.email || "email@example.com") +
+
+        '</span>' +
+
+        '<span class="minimal-contact-item">' +
+
+        '<svg viewBox="0 0 24 24">' +
+        '<path d="M7 4l3 1-1.5 4-2-.5c1 2.5 2.5 4 5 5l.5-2 4 1 1 3c.3 1-.4 2-1.4 2C9 17.5 6.5 15 5 12S3.5 7 4 5.5C4.3 4.5 5.5 3.7 7 4z"></path>' +
+        '</svg>' +
+
+        (answers.phone || "Телефон") +
+
+        '</span>' +
+
+        '</div>' +
+
+        '</div>' +
+
+        '</div>' +
+
+
+        '<div class="minimal-section">' +
+
+        '<div class="minimal-title">' +
+        'Профіль' +
+        '</div>' +
+
+        '<div class="minimal-text preview-blur">' +
+        (answers.about ||
+        "Професійний профіль кандидата.") +
+        '</div>' +
+
+        '</div>' +
+
+
+        '<div class="minimal-section">' +
+
+        '<div class="minimal-title">' +
+        'Досвід' +
+        '</div>' +
+
+        '<div class="minimal-text preview-blur">' +
+        createExperiencePreview() +
+        '</div>' +
+
+        '</div>' +
+
+
+        '<div class="minimal-section">' +
+
+        '<div class="minimal-title">' +
+        'Освіта' +
+        '</div>' +
+
+        '<div class="minimal-text preview-blur">' +
+        createEducationPreview() +
+        '</div>' +
+
+        '</div>' +
+
+
+        '<div class="minimal-section">' +
+
+        '<div class="minimal-title">' +
+        'Навички' +
+        '</div>' +
+
+        '<div class="minimal-text">' +
+        skillsHtml +
+        '</div>' +
+
+        '</div>' +
+
+        '</div>' +
+
+        '</div>'
+
+    );
+
+}
+
+/* =====================================================
+   CREATIVE
+===================================================== */
+
+function createCreativeResume() {
+
+    var photoHtml = answers.photo
+        ? '<img src="' + answers.photo + '" class="resume-photo">'
+        : '<div class="resume-no-photo">' +
+            '<svg viewBox="0 0 24 24">' +
+                '<circle cx="12" cy="8" r="3.5"></circle>' +
+                '<path d="M5 20c.8-4 3-6 7-6s6.2 2 7 6"></path>' +
+            '</svg>' +
+          '</div>';
+
+    var skills = answers.skills || [];
+
+    var skillsHtml = "";
+
+    for (var i = 0; i < skills.length; i++) {
+
+        skillsHtml +=
+            '<span class="creative-skill">' +
+            skills[i] +
+            '</span>';
+
+    }
+
+    return (
+
+        '<div class="resume-preview resume-creative">' +
+
+        '<div class="resume-watermark">' +
+        'CVly' +
+        '</div>' +
+
+        '<div class="resume-paper">' +
+
+        '<div class="creative-side">' +
+
+        photoHtml +
+
+        '<div class="creative-name">' +
+        (answers.name || "Твоє ім'я") +
+        '</div>' +
+
+        '<div class="creative-position">' +
+        (answers.position || "Бажана посада") +
+        '</div>' +
+
+
+        '<div class="creative-side-title">' +
+        'Контакти' +
+        '</div>' +
+
+        '<div class="creative-side-text">' +
+
+        '<div class="creative-contact-item">' +
+
+        '<svg viewBox="0 0 24 24">' +
+        '<path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"></path>' +
+        '<circle cx="12" cy="10" r="2.5"></circle>' +
+        '</svg>' +
+
+        '<span>' +
+        (answers.location || "Місто") +
+        '</span>' +
+
+        '</div>' +
+
+        '<div class="creative-contact-item">' +
+
+        '<svg viewBox="0 0 24 24">' +
+        '<rect x="3" y="5" width="18" height="14" rx="2"></rect>' +
+        '<path d="M4 7l8 6 8-6"></path>' +
+        '</svg>' +
+
+        '<span>' +
+        (answers.email || "email@example.com") +
+        '</span>' +
+
+        '</div>' +
+
+        '<div class="creative-contact-item">' +
+
+        '<svg viewBox="0 0 24 24">' +
+        '<path d="M7 4l3 1-1.5 4-2-.5c1 2.5 2.5 4 5 5l.5-2 4 1 1 3c.3 1-.4 2-1.4 2C9 17.5 6.5 15 5 12S3.5 7 4 5.5C4.3 4.5 5.5 3.7 7 4z"></path>' +
+        '</svg>' +
+
+        '<span>' +
+        (answers.phone || "Телефон") +
+        '</span>' +
+
+        '</div>' +
+
+        '</div>' +
+
+        '</div>' +
+
+
+        '<div class="creative-main">' +
+
+        '<div class="creative-main-section">' +
+
+        '<div class="creative-main-title">' +
+        'Професійний профіль' +
+        '</div>' +
+
+        '<div class="creative-main-text preview-blur">' +
+        (answers.about ||
+        "Професійний профіль кандидата.") +
+        '</div>' +
+
+        '</div>' +
+
+
+        '<div class="creative-main-section">' +
+
+        '<div class="creative-main-title">' +
+        'Досвід роботи' +
+        '</div>' +
+
+        '<div class="creative-main-text preview-blur">' +
+        createExperiencePreview() +
+        '</div>' +
+
+        '</div>' +
+
+
+        '<div class="creative-main-section">' +
+
+        '<div class="creative-main-title">' +
+        'Освіта' +
+        '</div>' +
+
+        '<div class="creative-main-text preview-blur">' +
+        createEducationPreview() +
+        '</div>' +
+
+        '</div>' +
+
+'<div class="creative-main-section">' +
+'<div class="creative-main-title">' +
+'Навички' +
+'</div>' +
+'<div class="creative-main-text creative-main-skills">' +
+skillsHtml +
+'</div>' +
+'</div>' +
+
+        createProPreviewCreative() +
+
+        '</div>' +
+
+        '</div>' +
+
+        '</div>'
+
+    );
+
+}
+
+/* =========================
+   PRO ДОДАТКОВІ БЛОКИ
+========================= */
+
+function createProPreview() {
+
+    if (
+        packageType !== "pro" &&
+        packageType !== "max"
+    ) {
+
+        return "";
+
+    }
+
+    var html = "";
+
+    if (answers.professionalStrength) {
+
+        html +=
+
+            '<div class="modern-section">' +
+
+            '<div class="modern-title">' +
+            'Професійна перевага' +
+            '</div>' +
+
+            '<div class="modern-text">' +
+            answers.professionalStrength +
+            '</div>' +
+
+            '</div>';
+
+    }
+
+    if (answers.languages) {
+
+        html +=
+
+            '<div class="modern-section">' +
+
+            '<div class="modern-title">' +
+            'Мови' +
+            '</div>' +
+
+            '<div class="modern-text preview-blur">' +
+            answers.languages +
+            '</div>' +
+
+            '</div>';
+
+    }
+
+    return html;
+}
+
+
+function createProPreviewCreative() {
+
+    if (
+        packageType !== "pro" &&
+        packageType !== "max"
+    ) {
+
+        return "";
+
+    }
+
+    var html = "";
+
+    if (answers.professionalStrength) {
+
+        html +=
+
+            '<div class="creative-main-section">' +
+
+            '<div class="creative-main-title">' +
+            'Професійна перевага' +
+            '</div>' +
+
+            '<div class="creative-main-text">' +
+            answers.professionalStrength +
+            '</div>' +
+
+            '</div>';
+
+    }
+
+    if (answers.languages) {
+
+        html +=
+
+            '<div class="creative-main-section">' +
+
+            '<div class="creative-main-title">' +
+            'Мови' +
+            '</div>' +
+
+            '<div class="creative-main-text preview-blur">' +
+            answers.languages +
+            '</div>' +
+
+            '</div>';
+
+    }
+
+    return html;
+}
+
+
+/* =====================================================
+   ЗМІНА ШАБЛОНУ
+===================================================== */
+
+function changeTemplate(template) {
+
+    selectedTemplate = template;
+
+    var container =
+        document.getElementById("resumeContainer");
+
+    if (!container) {
+        return;
+    }
+
+
+    var modernButton =
+        document.getElementById("template-modern");
+
+    var minimalButton =
+        document.getElementById("template-minimal");
+
+    var creativeButton =
+        document.getElementById("template-creative");
+
+
+    modernButton.classList.remove("selected");
+    minimalButton.classList.remove("selected");
+    creativeButton.classList.remove("selected");
+
+
+    if (template === "modern") {
+
+        modernButton.classList.add("selected");
+
+        container.innerHTML = createModernResume(
+            answers.photo
+                ? '<img src="' + answers.photo + '" class="resume-photo">'
+                : '<div class="resume-no-photo">👤</div>',
+            answers.name || "Твоє ім'я",
+            answers.position || "Бажана посада",
+            answers.location || "Місто",
+            answers.email || "email@example.com",
+            answers.about ||
+                "Професійний кандидат, орієнтований на розвиток.",
+            createSkillsModern(),
+            createExperiencePreview(),
+            createEducationPreview()
+        );
+
+    }
+
+
+    if (template === "minimal") {
+
+        minimalButton.classList.add("selected");
+
+        container.innerHTML =
+            createMinimalResume();
+
+    }
+
+
+    if (template === "creative") {
+
+        creativeButton.classList.add("selected");
+
+        container.innerHTML =
+            createCreativeResume();
+
+    }
+
+}
+
+
+/* =========================
+   MODERN SKILLS
+========================= */
+
+function createSkillsModern() {
+
+    var skills =
+        answers.skills || [];
+
+    var html = "";
+
+    if (skills.length === 0) {
+
+        return '<span class="modern-text">Навички</span>';
+
+    }
+
+    for (var i = 0; i < skills.length; i++) {
+
+        html +=
+            '<span class="modern-skill">' +
+            skills[i] +
+            '</span>';
+
+    }
+
+    return html;
+}
+
+
+/* =========================
+   ОПЛАТА
+========================= */
+
+async function startPayment() {
+
+    var resume = document.getElementById("resumeContainer");
+
+console.log("ОРИГІНАЛ:", resume.outerHTML.substring(0, 300));
+
+    if (!resume) {
+        alert("Резюме ще не створене.");
+        return;
+    }
+
+    var clone = resume.cloneNode(true);
+console.log("RESUME CONTAINER:", resume.offsetWidth, resume.offsetHeight);
+console.log("CLONE:", clone.offsetWidth, clone.offsetHeight);
+console.log("PREVIEW У CLONE:", clone.querySelector(".resume-preview") ? clone.querySelector(".resume-preview").offsetWidth + " x " + clone.querySelector(".resume-preview").offsetHeight : "НЕМАЄ");
+
+clone.querySelector(".resume-preview").classList.add("pdf-mode");
+clone.style.height = "297mm";
+clone.style.minHeight = "297mm";
+clone.style.margin = "0";
+clone.style.padding = "0";
+clone.style.overflow = "hidden";
+clone.style.boxSizing = "border-box";
+
+    var watermarks = clone.querySelectorAll(".resume-watermark");
+
+    for (var i = 0; i < watermarks.length; i++) {
+        watermarks[i].remove();
+    }
+
+    var blurred = clone.querySelectorAll(".preview-blur");
+
+    for (var i = 0; i < blurred.length; i++) {
+        blurred[i].classList.remove("preview-blur");
+    }
+
+    var styles = Array.from(document.querySelectorAll("style"))
+    .map(function(style) {
+        return style.textContent;
+    })
+    .join("\n");
+
+    try {
+
+        var response = await fetch("/generate-pdf", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+    html: clone.outerHTML,
+    css: styles,
+    email: answers.email
+})
+
+});
+        if (!response.ok) {
+            throw new Error("Помилка створення PDF");
+        }
+
+var result = await response.json();
+
+if (!result.success) {
+    throw new Error(result.message || "Не вдалося відправити резюме");
+}
+
+alert("Резюме успішно відправлено на твою пошту ❤️");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Не вдалося створити PDF 😔\n\n" +
+            "Перевір, чи запущений сервер."
+        );
+
+    }
+}
+
+
+/* =========================
+   ЗАПУСК
+========================= */
+
+if (packageType) {
+    document.getElementById("packageName").textContent =
+        "Обрано: " + packageNames[packageType];
+
+    showQuestion();
+} else {
+    showPackageSelection();
+}
+
+</script>
+
+</body>
+</html>
