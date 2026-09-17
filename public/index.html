@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CVly — Резюме, яке працює на тебе</title>
+
+    <meta
+        name="description"
+        content="Створи професійне резюме за кілька хвилин разом із CVly."
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background: #050505;
+            color: #f5f5f5;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        /* =========================
+           BACKGROUND
+        ========================= */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(255,255,255,0.08),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 0% 40%,
+                    rgba(120,120,120,0.07),
+                    transparent 28%
+                );
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+
+            opacity: 0.25;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 70px 70px;
+
+            mask-image: linear-gradient(
+                to bottom,
+                black,
+                transparent 70%
+            );
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6vw;
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+
+            background: rgba(5,5,5,0.75);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+        }
+
+        .logo span {
+            color: #888;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        nav a {
+            font-size: 14px;
+            color: #9d9d9d;
+            transition: 0.2s ease;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        .header-button {
+            padding: 10px 17px;
+
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 9px;
+
+            background: #f5f5f5;
+            color: #090909;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+        .header-button:hover {
+            transform: translateY(-1px);
+            background: white;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: calc(100vh - 72px);
+
+            display: flex;
+            align-items: center;
+
+            padding: 110px 6vw 100px;
+
+            position: relative;
+        }
+
+        .hero-inner {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 90px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 25px;
+
+            color: #a8a8a8;
+
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            box-shadow:
+                0 0 12px rgba(255,255,255,0.8);
+        }
+
+        .hero h1 {
+            max-width: 720px;
+
+            font-size: clamp(48px, 6vw, 84px);
+
+            line-height: 0.98;
+
+            letter-spacing: -5px;
+
+            font-weight: 750;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff 0%,
+                    #d5d5d5 55%,
+                    #777 100%
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 strong {
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #8e8e8e
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            max-width: 580px;
+
+            margin-top: 30px;
+
+            color: #929292;
+
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            margin-top: 38px;
+        }
+
+        .primary-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 48px;
+
+            padding: 0 23px;
+
+            border-radius: 9px;
+
+            background: #f5f5f5;
+            color: #050505;
+
+            font-size: 14px;
+            font-weight: 650;
+
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,0.2),
+                0 10px 35px rgba(0,0,0,0.35);
+
+            transition: 0.25s ease;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            background: white;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.45);
+        }
+
+        .secondary-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 48px;
+
+            padding: 0 23px;
+
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 9px;
+
+            color: #b5b5b5;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            background: rgba(255,255,255,0.025);
+
+            transition: 0.25s ease;
+        }
+
+        .secondary-button:hover {
+            border-color: rgba(255,255,255,0.3);
+            color: white;
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* =========================
+           RESUME PREVIEW
+        ========================= */
+
+        .hero-preview {
+            position: relative;
+
+            min-height: 560px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .glow {
+            position: absolute;
+
+            width: 380px;
+            height: 380px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.12),
+                    transparent 65%
+                );
+
+            filter: blur(15px);
+        }
+
+        .resume-card {
+            position: relative;
+
+            width: min(420px, 90%);
+
+            padding: 34px;
+
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #eeeeee,
+                    #c9c9c9 45%,
+                    #8f8f8f
+                );
+
+            color: #111;
+
+            box-shadow:
+                0 35px 80px rgba(0,0,0,0.6),
+                0 0 80px rgba(255,255,255,0.08);
+
+            transform: rotate(2deg);
+
+            transition: 0.4s ease;
+        }
+
+        .resume-card:hover {
+            transform:
+                rotate(0deg)
+                translateY(-8px);
+        }
+
+        .resume-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            padding-bottom: 25px;
+
+            border-bottom: 1px solid rgba(0,0,0,0.18);
+        }
+
+        .resume-name {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .resume-role {
+            margin-top: 4px;
+
+            font-size: 12px;
+            color: #555;
+        }
+
+        .resume-photo {
+            width: 65px;
+            height: 65px;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #555,
+                    #ddd
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 24px;
+        }
+
+        .resume-line {
+            height: 7px;
+
+            margin-top: 22px;
+
+            border-radius: 10px;
+
+            background: rgba(0,0,0,0.12);
+        }
+
+        .resume-line.small {
+            width: 65%;
+        }
+
+        .resume-section {
+            margin-top: 25px;
+        }
+
+        .resume-section-title {
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        .resume-text {
+            margin-top: 8px;
+
+            font-size: 10px;
+            line-height: 1.7;
+
+            color: #444;
+        }
+
+        .resume-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+
+            margin-top: 10px;
+        }
+
+        .resume-tag {
+            padding: 5px 8px;
+
+            border-radius: 5px;
+
+            background: rgba(0,0,0,0.08);
+
+            font-size: 8px;
+        }
+
+        /* =========================
+           TRUST BAR
+        ========================= */
+
+        .trust {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+
+            padding: 25px 6vw;
+        }
+
+        .trust-inner {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .trust-item {
+            color: #707070;
+
+            font-size: 12px;
+            letter-spacing: 0.3px;
+        }
+
+        .trust-item strong {
+            display: block;
+
+            color: #d0d0d0;
+
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        section.content-section {
+            padding: 130px 6vw;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            margin-bottom: 17px;
+
+            color: #777;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .section-title {
+            max-width: 760px;
+
+            font-size: clamp(35px, 4vw, 58px);
+
+            line-height: 1.05;
+
+            letter-spacing: -3px;
+
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            max-width: 650px;
+
+            margin-top: 20px;
+
+            color: #858585;
+
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           HOW IT WORKS
+        ========================= */
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 14px;
+
+            margin-top: 60px;
+        }
+
+        .step {
+            min-height: 270px;
+
+            padding: 30px;
+
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.055),
+                    rgba(255,255,255,0.015)
+                );
+
+            transition: 0.25s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-4px);
+
+            border-color: rgba(255,255,255,0.2);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.08),
+                    rgba(255,255,255,0.02)
+                );
+        }
+
+        .step-number {
+            color: #777;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .step h3 {
+            margin-top: 75px;
+
+            font-size: 21px;
+
+            letter-spacing: -0.5px;
+        }
+
+        .step p {
+            margin-top: 10px;
+
+            color: #777;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           VISUAL BLOCK
+        ========================= */
+
+        .visual-block {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+
+            gap: 18px;
+
+            margin-top: 65px;
+        }
+
+        .visual-image {
+            min-height: 560px;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            background: #111;
+        }
+
+        .visual-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            /* КАРТИНКА ЗАЛИШАЄТЬСЯ КОЛЬОРОВОЮ */
+            filter: none;
+
+            display: block;
+
+            transition: transform 0.5s ease;
+        }
+
+        .visual-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .visual-text {
+            min-height: 560px;
+
+            padding: 50px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 15px;
+
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(255,255,255,0.08),
+                    transparent 45%
+                ),
+                #0c0c0c;
+        }
+
+        .visual-text h3 {
+            max-width: 500px;
+
+            font-size: 38px;
+
+            line-height: 1.08;
+
+            letter-spacing: -2px;
+        }
+
+        .visual-text p {
+            max-width: 520px;
+
+            margin-top: 22px;
+
+            color: #858585;
+
+            font-size: 16px;
+            line-height: 1.75;
+        }
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 14px;
+
+            margin-top: 60px;
+        }
+
+        .feature {
+            padding: 32px;
+
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 13px;
+
+            background: #090909;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.1),
+                    rgba(255,255,255,0.025)
+                );
+
+            font-size: 17px;
+        }
+
+        .feature h3 {
+            margin-top: 25px;
+
+            font-size: 19px;
+        }
+
+        .feature p {
+            margin-top: 9px;
+
+            color: #777;
+
+            font-size: 14px;
+            line-height: 1.65;
+        }
+
+        /* =========================
+           STORY
+        ========================= */
+
+        .story {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 18px;
+
+            margin-top: 60px;
+        }
+
+        .story-image {
+            min-height: 500px;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            border: 1px solid rgba(255,255,255,0.09);
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            filter: none;
+
+            display: block;
+        }
+
+        .story-text {
+            padding: 50px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #101010,
+                    #080808
+                );
+        }
+
+        .story-text p {
+            color: #888;
+
+            font-size: 17px;
+
+            line-height: 1.8;
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+            padding: 140px 6vw;
+        }
+
+        .cta-box {
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            padding: 85px 50px;
+
+            text-align: center;
+
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 18px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(255,255,255,0.12),
+                    transparent 50%
+                ),
+                #0b0b0b;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.35);
+        }
+
+        .cta-box h2 {
+            font-size: clamp(38px, 5vw, 65px);
+
+            line-height: 1;
+
+            letter-spacing: -3px;
+        }
+
+        .cta-box p {
+            max-width: 540px;
+
+            margin: 22px auto 32px;
+
+            color: #7d7d7d;
+
+            font-size: 16px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 45px 6vw;
+
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-logo {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .footer-text {
+            color: #555;
+
+            font-size: 12px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            header {
+                padding: 0 5vw;
+            }
+
+            nav a:not(.header-button) {
+                display: none;
+            }
+
+            .hero {
+                padding: 80px 5vw;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .hero h1 {
+                letter-spacing: -3px;
+            }
+
+            .hero-preview {
+                min-height: 450px;
+            }
+
+            .trust {
+                padding: 25px 5vw;
+            }
+
+            .trust-inner {
+                flex-wrap: wrap;
+            }
+
+            section.content-section {
+                padding: 90px 5vw;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .visual-block {
+                grid-template-columns: 1fr;
+            }
+
+            .visual-image,
+            .visual-text {
+                min-height: 420px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .story {
+                grid-template-columns: 1fr;
+            }
+
+            .story-image {
+                min-height: 400px;
+            }
+
+            .cta {
+                padding: 90px 5vw;
+            }
+
+            .cta-box {
+                padding: 65px 25px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .hero {
+                padding-top: 65px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .primary-button,
+            .secondary-button {
+                width: 100%;
+            }
+
+            .hero-preview {
+                min-height: 400px;
+            }
+
+            .resume-card {
+                padding: 25px;
+            }
+
+            .trust-inner {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .visual-text,
+            .story-text {
+                padding: 30px;
+            }
+
+            .visual-text h3 {
+                font-size: 31px;
+            }
+
+            .section-title {
+                letter-spacing: -2px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <a href="/" class="logo">
+            CV<span>ly</span>
+        </a>
+
+        <nav>
+            <a href="#how">Як це працює</a>
+            <a href="#why">Переваги</a>
+
+            <a
+                href="/form.html"
+                class="header-button"
+            >
+                Створити резюме
+            </a>
+        </nav>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-inner">
+
+                <div>
+
+                    <div class="eyebrow">
+                        Професійне резюме без зайвого
+                    </div>
+
+                    <h1>
+                        Резюме,
+                        <strong>яким хочеться поділитися.</strong>
+                    </h1>
+
+                    <p class="hero-description">
+                        CVly допомагає перетворити твій досвід,
+                        навички та цілі на професійне резюме,
+                        яке виглядає впевнено та сучасно.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <a
+                            href="/form.html"
+                            class="primary-button"
+                        >
+                            Створити резюме
+                        </a>
+
+                        <a
+                            href="#how"
+                            class="secondary-button"
+                        >
+                            Дізнатися більше
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RESUME PREVIEW -->
+
+                <div class="hero-preview">
+
+                    <div class="glow"></div>
+
+                    <div class="resume-card">
+
+                        <div class="resume-top">
+
+                            <div>
+
+                                <div class="resume-name">
+                                    АННА
+                                </div>
+
+                                <div class="resume-role">
+                                    Marketing Manager
+                                </div>
+
+                            </div>
+
+                            <div class="resume-photo">
+                                ✦
+                            </div>
+
+                        </div>
+
+
+                        <div class="resume-section">
+
+                            <div class="resume-section-title">
+                                Про мене
+                            </div>
+
+                            <div class="resume-text">
+                                Відповідальна та комунікабельна
+                                спеціалістка з досвідом роботи
+                                у команді та бажанням розвиватися.
+                            </div>
+
+                        </div>
+
+
+                        <div class="resume-section">
+
+                            <div class="resume-section-title">
+                                Навички
+                            </div>
+
+                            <div class="resume-tags">
+
+                                <div class="resume-tag">
+                                    Communication
+                                </div>
+
+                                <div class="resume-tag">
+                                    Management
+                                </div>
+
+                                <div class="resume-tag">
+                                    Sales
+                                </div>
+
+                                <div class="resume-tag">
+                                    Organization
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="resume-section">
+
+                            <div class="resume-section-title">
+                                Досвід
+                            </div>
+
+                            <div class="resume-line"></div>
+                            <div class="resume-line small"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TRUST -->
+
+        <div class="trust">
+
+            <div class="trust-inner">
+
+                <div class="trust-item">
+                    <strong>3 кроки</strong>
+                    до готового резюме
+                </div>
+
+                <div class="trust-item">
+                    <strong>PDF</strong>
+                    готовий до відправки
+                </div>
+
+                <div class="trust-item">
+                    <strong>Професійний дизайн</strong>
+                    без шаблонного вигляду
+                </div>
+
+                <div class="trust-item">
+                    <strong>На пошту</strong>
+                    отримуєш готовий файл
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HOW -->
+
+        <section
+            class="content-section"
+            id="how"
+        >
+
+            <div class="section-container">
+
+                <div class="section-label">
+                    Як це працює
+                </div>
+
+                <h2 class="section-title">
+                    Від порожньої сторінки
+                    до готового резюме.
+                </h2>
+
+                <p class="section-subtitle">
+                    Тобі не потрібно годинами думати,
+                    що написати та як це оформити.
+                    CVly проведе тебе через простий процес.
+                </p>
+
+
+                <div class="steps">
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <h3>
+                            Обери пакет
+                        </h3>
+
+                        <p>
+                            Вибери формат резюме,
+                            який підходить саме тобі.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Розкажи про себе
+                        </h3>
+
+                        <p>
+                            Відповідай на прості питання.
+                            Ми перетворимо твої відповіді
+                            на структуроване резюме.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <h3>
+                            Отримай PDF
+                        </h3>
+
+                        <p>
+                            Готовий документ прийде
+                            прямо на твою електронну пошту.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- VISUAL -->
+
+        <section class="content-section">
+
+            <div class="section-container">
+
+                <div class="section-label">
+                    Не просто шаблон
+                </div>
+
+                <h2 class="section-title">
+                    Твоє резюме має
+                    виглядати як ти.
+                </h2>
+
+
+                <div class="visual-block">
+
+                    <div class="visual-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85"
+                            alt="Команда професіоналів"
+                        >
+
+                    </div>
+
+
+                    <div class="visual-text">
+
+                        <h3>
+                            Чистий дизайн.
+                            Сильне перше враження.
+                        </h3>
+
+                        <p>
+                            Ми прибрали все зайве, щоб роботодавець
+                            міг одразу побачити головне:
+                            хто ти, що ти вмієш і чому саме ти
+                            підходиш на цю позицію.
+                        </p>
+
+                        <p>
+                            Ніяких перевантажених шаблонів.
+                            Тільки структура, читабельність
+                            та сучасний вигляд.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- WHY -->
+
+        <section
+            class="content-section"
+            id="why"
+        >
+
+            <div class="section-container">
+
+                <div class="section-label">
+                    Чому CVly
+                </div>
+
+                <h2 class="section-title">
+                    Створено для людей,
+                    які хочуть виглядати професійно.
+                </h2>
+
+                <div class="features">
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            ✦
+                        </div>
+
+                        <h3>
+                            Професійний вигляд
+                        </h3>
+
+                        <p>
+                            Резюме має сучасний дизайн,
+                            який не виглядає як випадковий
+                            шаблон з інтернету.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            ↗
+                        </div>
+
+                        <h3>
+                            Просто заповнити
+                        </h3>
+
+                        <p>
+                            Не потрібно знати правила
+                            написання резюме. Просто
+                            відповідай на питання.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            ✓
+                        </div>
+
+                        <h3>
+                            Готовий PDF
+                        </h3>
+
+                        <p>
+                            Отримуєш файл, який можна
+                            одразу прикріпити до вакансії
+                            або надіслати роботодавцю.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            ∞
+                        </div>
+
+                        <h3>
+                            Більше, ніж просто текст
+                        </h3>
+
+                        <p>
+                            Структура допомагає правильно
+                            показати досвід, навички,
+                            сильні сторони та цілі.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- STORY -->
+
+        <section class="content-section">
+
+            <div class="section-container">
+
+                <div class="story">
+
+                    <div class="story-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=85"
+                            alt="Професійна команда"
+                        >
+
+                    </div>
+
+
+                    <div class="story-text">
+
+                        <div class="section-label">
+                            Твій наступний крок
+                        </div>
+
+                        <p>
+                            Хороше резюме не гарантує роботу.
+                            Але воно може стати тією самою
+                            першою можливістю, яку роботодавець
+                            не захоче пропустити.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CTA -->
+
+        <section class="cta">
+
+            <div class="cta-box">
+
+                <h2>
+                    Готова показати себе?
+                </h2>
+
+                <p>
+                    Створи професійне резюме
+                    за кілька хвилин.
+                </p>
+
+                <a
+                    href="/form.html"
+                    class="primary-button"
+                >
+                    Створити резюме
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div class="footer-logo">
+                CVly
+            </div>
+
+            <div class="footer-text">
+                © 2026 CVly. Створюй можливості.
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
+
