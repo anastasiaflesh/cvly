@@ -7,9 +7,57 @@ const app = express();
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-app.use(express.json({ limit: "15mb" }));
-
 app.use(express.static(path.join(__dirname, "public")));
+
+app.post("/webhook", express.raw({ type: "application/json" }), async function(req, res) {
+    try {
+        const crypto = require("crypto");
+
+        const signature = req.headers["x-crynova-sig"];
+        const secret = process.env.CRYNOVA_WEBHOOK_SECRET;
+
+        if (!signature || !secret) {
+            console.error("Немає підпису або секрету Crynova");
+            return res.status(401).send("Unauthorized");
+        }
+
+        const expectedSignature =
+            "sha256=" +
+            crypto
+                .createHmac("sha256", secret)
+                .update(req.body)
+                .digest("hex");
+
+        if (
+            !crypto.timingSafeEqual(
+                Buffer.from(signature),
+                Buffer.from(expectedSignature)
+            )
+        ) {
+            console.error("Невірний підпис Crynova");
+            return res.status(403).send("Invalid signature");
+        }
+
+        const data = JSON.parse(req.body.toString());
+
+        console.log("WEBHOOK Crynova:", data);
+
+        if (data.event === "invoice.paid" && data.status === "paid") {
+            console.log("ОПЛАТА ПІДТВЕРДЖЕНА!");
+            console.log("Order ID:", data.order_id);
+            console.log("Сума:", data.price_amount, data.price_currency);
+            console.log("Отримано:", data.amount, data.pay_currency);
+        }
+
+        return res.status(200).send("OK");
+
+    } catch (error) {
+        console.error("Помилка webhook:", error);
+        return res.status(500).send("Webhook error");
+    }
+});
+
+app.use(express.json({ limit: "15mb" }));
 
 app.post("/generate-pdf", async function(req, res) {
 console.log("ЗАПИТ /generate-pdf ОТРИМАНО");
