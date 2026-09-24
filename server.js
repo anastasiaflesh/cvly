@@ -57,6 +57,57 @@ app.post("/webhook", express.raw({ type: "application/json" }), async function(r
     }
 });
 
+app.post(
+    "/webhook/cryptopayr",
+    express.raw({ type: "application/json" }),
+    async function(req, res) {
+        try {
+            const crypto = require("crypto");
+
+            const signature = req.headers["x-cryptopayr-signature"];
+            const apiKey = process.env.CRYPTOPAYR_API_KEY;
+
+            if (!signature || !apiKey) {
+                console.error("CryptoPayr: немає підпису або API key");
+                return res.status(401).send("Unauthorized");
+            }
+
+            const expectedSignature = crypto
+                .createHmac("sha256", apiKey)
+                .update(req.body)
+                .digest("hex");
+
+            const received = Buffer.from(signature, "utf8");
+            const expected = Buffer.from(expectedSignature, "utf8");
+
+            if (
+                received.length !== expected.length ||
+                !crypto.timingSafeEqual(received, expected)
+            ) {
+                console.error("CryptoPayr: невірний підпис");
+                return res.status(403).send("Invalid signature");
+            }
+
+            const data = JSON.parse(req.body.toString());
+
+            console.log("WEBHOOK CryptoPayr:", data);
+
+            if (data.status === "COMPLETED") {
+                console.log("ОПЛАТА CryptoPayr ПІДТВЕРДЖЕНА!");
+                console.log("Transaction ID:", data.tid);
+                console.log("Metadata:", data.metadata);
+                console.log("Сума:", data.amount, data.currency);
+            }
+
+            return res.status(200).send("OK");
+
+        } catch (error) {
+            console.error("Помилка CryptoPayr webhook:", error);
+            return res.status(500).send("Webhook error");
+        }
+    }
+);
+
 app.use(express.json({ limit: "15mb" }));
 
 app.post("/generate-pdf", async function(req, res) {
