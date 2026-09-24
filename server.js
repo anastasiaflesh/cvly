@@ -291,7 +291,7 @@ app.post("/create-cryptopayr-payment", async function(req, res) {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${process.env.CRYPTOPAYR_API_KEY}`,
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                     "Idempotency-Key": crypto.randomUUID()
                 },
                 body: JSON.stringify({
