@@ -5755,6 +5755,7 @@ console.log("ОРИГІНАЛ:", resume.outerHTML.substring(0, 300));
     }
 
     var clone = resume.cloneNode(true);
+    clone.style.background = "white";
     clone.querySelector(".resume-preview").classList.add("pdf-mode");
 console.log("RESUME CONTAINER:", resume.offsetWidth, resume.offsetHeight);
 console.log("CLONE:", clone.offsetWidth, clone.offsetHeight);
