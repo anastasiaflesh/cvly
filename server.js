@@ -298,6 +298,8 @@ app.post("/create-cryptopayr-payment", async function(req, res) {
                     amount,
                     currency,
                     metadata
+                    success_url: "https://cvly.onrender.com/",
+    cancel_url: "https://cvly.onrender.com/"
                 })
             }
         );
