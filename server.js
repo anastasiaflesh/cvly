@@ -103,6 +103,24 @@ console.log("ЗНАЙДЕНО РЕЗЮМЕ:", !!order);
     console.error("Не знайдено замовлення для:", data.metadata);
     return res.status(400).send("Order not found");
 }
+                const pdfResponse = await fetch(
+    "https://cvly.onrender.com/generate-pdf",
+    {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            html: order.html,
+            css: order.css,
+            email: order.email
+        })
+    }
+);
+
+const pdfResult = await pdfResponse.json();
+
+console.log("РЕЗУЛЬТАТ СТВОРЕННЯ PDF:", pdfResult);
                 console.log("Сума:", data.amount, data.currency);
             }
 
