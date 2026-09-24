@@ -5755,11 +5755,11 @@ console.log("ОРИГІНАЛ:", resume.outerHTML.substring(0, 300));
     }
 
     var clone = resume.cloneNode(true);
+    clone.querySelector(".resume-preview").classList.add("pdf-mode");
 console.log("RESUME CONTAINER:", resume.offsetWidth, resume.offsetHeight);
 console.log("CLONE:", clone.offsetWidth, clone.offsetHeight);
 console.log("PREVIEW У CLONE:", clone.querySelector(".resume-preview") ? clone.querySelector(".resume-preview").offsetWidth + " x " + clone.querySelector(".resume-preview").offsetHeight : "НЕМАЄ");
 
-clone.querySelector(".resume-preview").classList.add("pdf-mode");
 clone.style.height = "297mm";
 clone.style.minHeight = "297mm";
 clone.style.margin = "0";
