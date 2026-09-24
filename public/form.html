@@ -5727,7 +5727,9 @@ var styles = Array.from(document.querySelectorAll("style"))
     amount: packagePrices[packageType],
     currency: "UAH",
     metadata: "cvly-" + Date.now(),
-    resume: answers
+    resume: answers,
+    html: clone.outerHTML,
+    css: styles
 })
     });
 
