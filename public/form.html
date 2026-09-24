@@ -5783,6 +5783,7 @@ async function startPayment() {
         })
         .join("\n");
 
+    console.log("COVER LETTER:", createCoverLetter());
     var paymentResponse = await fetch("/create-cryptopayr-payment", {
         method: "POST",
         headers: {
