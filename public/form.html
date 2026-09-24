@@ -5694,7 +5694,28 @@ function createSkillsModern() {
 ========================= */
 
 async function startPayment() {
+    var paymentResponse = await fetch("/create-cryptopayr-payment", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            amount: packagePrices[packageType],
+            currency: "UAH",
+            metadata: "cvly-" + Date.now()
+        })
+    });
 
+    var paymentResult = await paymentResponse.json();
+
+    if (!paymentResult.success) {
+        alert("Не вдалося створити платіж 😔");
+        console.error(paymentResult);
+        return;
+    }
+
+    window.location.href = paymentResult.checkout_url;
+    return;
     var resume = document.getElementById("resumeContainer");
 
 console.log("ОРИГІНАЛ:", resume.outerHTML.substring(0, 300));
