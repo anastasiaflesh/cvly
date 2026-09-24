@@ -275,6 +275,7 @@ console.log("ТЕСТОВИЙ PDF ЗБЕРЕЖЕНО");
 
 app.post("/create-cryptopayr-payment", async function(req, res) {
     try {
+        const crypto = require("crypto");
         const { amount, currency, metadata } = req.body;
 
         if (!amount || !currency) {
@@ -291,6 +292,7 @@ app.post("/create-cryptopayr-payment", async function(req, res) {
                 headers: {
                     "Authorization": `Bearer ${process.env.CRYPTOPAYR_API_KEY}`,
                     "Content-Type": "application/json"
+                    "Idempotency-Key": crypto.randomUUID()
                 },
                 body: JSON.stringify({
                     amount,
