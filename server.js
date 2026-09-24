@@ -314,7 +314,7 @@ app.post("/create-cryptopayr-payment", async function(req, res) {
 
         return res.status(200).json({
             success: true,
-            checkout_url: data.checkout_url
+            checkout_url: data.data.checkout_url
         });
 
     } catch (error) {
