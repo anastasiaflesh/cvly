@@ -273,6 +273,60 @@ console.log("ТЕСТОВИЙ PDF ЗБЕРЕЖЕНО");
     }
 });
 
+app.post("/create-cryptopayr-payment", async function(req, res) {
+    try {
+        const { amount, currency, metadata } = req.body;
+
+        if (!amount || !currency) {
+            return res.status(400).json({
+                success: false,
+                message: "Не вказана сума або валюта"
+            });
+        }
+
+        const response = await fetch(
+            "https://cryptopayr.com/api/v1/payment/create",
+            {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${process.env.CRYPTOPAYR_API_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    amount,
+                    currency,
+                    metadata
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        console.log("CryptoPayr payment:", data);
+
+        if (!response.ok) {
+            return res.status(response.status).json({
+                success: false,
+                message: "CryptoPayr не створив платіж",
+                error: data
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            checkout_url: data.checkout_url
+        });
+
+    } catch (error) {
+        console.error("CryptoPayr payment error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Помилка створення платежу"
+        });
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, "0.0.0.0", function() {
