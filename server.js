@@ -318,11 +318,14 @@ app.post("/create-cryptopayr-payment", async function(req, res) {
         console.log("CryptoPayr payment:", data);
         if (data.data && data.data.tid) {
     pendingOrders.set(metadata, {
-        tid: data.data.tid,
-        resume: resume,
-        amount: amount,
-        currency: currency
-    });
+    tid: data.data.tid,
+    resume: resume,
+    html: html,
+    css: css,
+    email: resume.email,
+    amount: amount,
+    currency: currency
+});
 }
 
         if (!response.ok) {
