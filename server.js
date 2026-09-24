@@ -273,6 +273,8 @@ console.log("ТЕСТОВИЙ PDF ЗБЕРЕЖЕНО");
     }
 });
 
+const pendingOrders = new Map();
+
 app.post("/create-cryptopayr-payment", async function(req, res) {
     try {
         const crypto = require("crypto");
