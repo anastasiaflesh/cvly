@@ -143,6 +143,9 @@ console.log("ЗАПИТ /generate-pdf ОТРИМАНО");
     try {
         const { html, css, email } = req.body;
 
+console.log("PDF HTML LENGTH:", html ? html.length : 0);
+console.log("PDF HAS COVER:", html ? html.includes("cover-letter-page") : false);
+        
         if (!html) {
             return res.status(400).json({
                 success: false,
