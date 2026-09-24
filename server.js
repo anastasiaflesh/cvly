@@ -96,6 +96,9 @@ app.post(
                 console.log("ОПЛАТА CryptoPayr ПІДТВЕРДЖЕНА!");
                 console.log("Transaction ID:", data.tid);
                 console.log("Metadata:", data.metadata);
+                const order = pendingOrders.get(data.metadata);
+
+console.log("ЗНАЙДЕНО РЕЗЮМЕ:", !!order);
                 console.log("Сума:", data.amount, data.currency);
             }
 
