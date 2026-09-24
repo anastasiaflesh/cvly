@@ -297,7 +297,7 @@ app.post("/create-cryptopayr-payment", async function(req, res) {
                 body: JSON.stringify({
                     amount,
                     currency,
-                    metadata
+                    metadata,
                     success_url: "https://cvly.onrender.com/",
     cancel_url: "https://cvly.onrender.com/"
                 })
