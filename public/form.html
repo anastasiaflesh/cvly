@@ -5700,10 +5700,11 @@ async function startPayment() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            amount: packagePrices[packageType],
-            currency: "UAH",
-            metadata: "cvly-" + Date.now()
-        })
+    amount: packagePrices[packageType],
+    currency: "UAH",
+    metadata: "cvly-" + Date.now(),
+    resume: answers
+})
     });
 
     var paymentResult = await paymentResponse.json();
