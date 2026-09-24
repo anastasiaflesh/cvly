@@ -191,6 +191,9 @@ console.log("ЗАПИТ /generate-pdf ОТРИМАНО");
                         padding: 0;
                         background: white;
                     }
+                    .resume-preview {
+    background: white !important;
+}
                 </style>
             </head>
 
