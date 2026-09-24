@@ -221,6 +221,15 @@ console.log("РОЗМІР СТОРІНКИ:", await page.evaluate(() => {
         height: el ? el.offsetHeight : null
     };
 }));
+        console.log("COVER PAGE:", await page.evaluate(() => {
+    const el = document.querySelector(".cover-letter-page");
+    return {
+        exists: !!el,
+        width: el ? el.offsetWidth : null,
+        height: el ? el.offsetHeight : null,
+        text: el ? el.innerText.substring(0, 100) : null
+    };
+}));
         const pdf = await page.pdf({
             format: "A4",
             printBackground: true,
