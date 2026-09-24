@@ -797,7 +797,6 @@ textarea {
     box-sizing: border-box;
     background: white;
     padding: 25mm;
-    page-break-before: always;
     color: #222;
     font-family: Arial, sans-serif;
 }
@@ -812,6 +811,13 @@ textarea {
     font-size: 16px;
     line-height: 1.7;
     white-space: pre-wrap;
+}
+
+.cover-letter-wrapper {
+    page-break-before: always;
+    break-before: page;
+    width: 210mm;
+    min-height: 297mm;
 }
     
 .resume-preview {
@@ -5794,7 +5800,7 @@ async function startPayment() {
             currency: "UAH",
             metadata: "cvly-" + Date.now(),
             resume: answers,
-            html: clone.outerHTML + createCoverLetter(),
+            html: clone.outerHTML + '<div class="cover-letter-wrapper">' + createCoverLetter() + '</div>',
             css: styles
         })
     });
