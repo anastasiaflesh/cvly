@@ -791,6 +791,29 @@ textarea {
    CV PREVIEW
 ========================= */
 
+.cover-letter-page {
+    width: 210mm;
+    min-height: 297mm;
+    box-sizing: border-box;
+    background: white;
+    padding: 25mm;
+    page-break-before: always;
+    color: #222;
+    font-family: Arial, sans-serif;
+}
+
+.cover-letter-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.cover-letter-text {
+    font-size: 16px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+    
 .resume-preview {
     position: relative;
 
@@ -5530,7 +5553,47 @@ function createProPreview() {
     return html;
 }
 
+function createCoverLetter() {
 
+    if (
+        packageType !== "pro" &&
+        packageType !== "max"
+    ) {
+        return "";
+    }
+
+    if (!answers.cover) {
+        return "";
+    }
+
+    return (
+
+        '<div class="cover-letter-page">' +
+
+            '<div class="cover-letter-title">' +
+            'Супровідний лист' +
+            '</div>' +
+
+            '<div class="cover-letter-text">' +
+            'Шановний роботодавцю!' +
+            '<br><br>' +
+
+            answers.cover +
+
+            '<br><br>' +
+
+            'Буду рада можливості долучитися до вашої команди та детальніше розповісти про свій досвід і навички.' +
+            '<br><br>' +
+
+            'З повагою,<br>' +
+            (answers.name || "Кандидат") +
+
+            '</div>' +
+
+        '</div>'
+
+    );
+}
 function createProPreviewCreative() {
 
     if (
@@ -5730,7 +5793,7 @@ async function startPayment() {
             currency: "UAH",
             metadata: "cvly-" + Date.now(),
             resume: answers,
-            html: clone.outerHTML,
+            html: clone.outerHTML + createCoverLetter(),
             css: styles
         })
     });
