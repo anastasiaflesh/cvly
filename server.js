@@ -278,7 +278,7 @@ const pendingOrders = new Map();
 app.post("/create-cryptopayr-payment", async function(req, res) {
     try {
         const crypto = require("crypto");
-        const { amount, currency, metadata } = req.body;
+        const { amount, currency, metadata, resume } = req.body;
 
         if (!amount || !currency) {
             return res.status(400).json({
