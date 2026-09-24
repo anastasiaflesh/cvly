@@ -309,6 +309,14 @@ app.post("/create-cryptopayr-payment", async function(req, res) {
         const data = await response.json();
 
         console.log("CryptoPayr payment:", data);
+        if (data.data && data.data.tid) {
+    pendingOrders.set(metadata, {
+        tid: data.data.tid,
+        resume: resume,
+        amount: amount,
+        currency: currency
+    });
+}
 
         if (!response.ok) {
             return res.status(response.status).json({
