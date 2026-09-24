@@ -99,6 +99,10 @@ app.post(
                 const order = pendingOrders.get(data.metadata);
 
 console.log("ЗНАЙДЕНО РЕЗЮМЕ:", !!order);
+                if (!order) {
+    console.error("Не знайдено замовлення для:", data.metadata);
+    return res.status(400).send("Order not found");
+}
                 console.log("Сума:", data.amount, data.currency);
             }
 
