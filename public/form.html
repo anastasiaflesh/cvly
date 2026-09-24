@@ -5699,6 +5699,30 @@ async function startPayment() {
         headers: {
             "Content-Type": "application/json"
         },
+        var resume = document.getElementById("resumeContainer");
+
+if (!resume) {
+    alert("Резюме ще не створене.");
+    return;
+}
+
+var clone = resume.cloneNode(true);
+
+var watermarks = clone.querySelectorAll(".resume-watermark");
+for (var i = 0; i < watermarks.length; i++) {
+    watermarks[i].remove();
+}
+
+var blurred = clone.querySelectorAll(".preview-blur");
+for (var i = 0; i < blurred.length; i++) {
+    blurred[i].classList.remove("preview-blur");
+}
+
+var styles = Array.from(document.querySelectorAll("style"))
+    .map(function(style) {
+        return style.textContent;
+    })
+    .join("\n");
         body: JSON.stringify({
     amount: packagePrices[packageType],
     currency: "UAH",
