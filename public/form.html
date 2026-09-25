@@ -5800,7 +5800,7 @@ async function startPayment() {
             currency: "UAH",
             metadata: "cvly-" + Date.now(),
             resume: answers,
-            html: clone.outerHTML + '<div class="cover-letter-wrapper">' + createCoverLetter() + '</div>',
+            html: clone.outerHTML + (createCoverLetter() ? '<div class="cover-letter-wrapper">' + createCoverLetter() + '</div>' : ''),
             css: styles
         })
     });
