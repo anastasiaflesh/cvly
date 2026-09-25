@@ -98,7 +98,8 @@ app.post(
             const data = JSON.parse(req.body.toString());
 
             console.log("WEBHOOK CryptoPayr:", data);
-
+            res.status(200).send("OK");
+            
             if (data.status === "COMPLETED") {
                 const paymentCheck = await pool.query(
     "SELECT tid FROM processed_payments WHERE tid = $1",
@@ -158,7 +159,7 @@ await pool.query(
                 console.log("Сума:", data.amount, data.currency);
             }
 
-            return res.status(200).send("OK");
+            return;
 
         } catch (error) {
             console.error("Помилка CryptoPayr webhook:", error);
