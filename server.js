@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const { Resend } = require("resend");
 const puppeteer = require("puppeteer");
+const { Pool } = require("pg");
 
 const app = express();
 
