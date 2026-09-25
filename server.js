@@ -5,6 +5,12 @@ const puppeteer = require("puppeteer");
 const { Pool } = require("pg");
 
 const app = express();
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.DATABASE_URL
+        ? { rejectUnauthorized: false }
+        : false
+});
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -97,7 +103,12 @@ app.post(
                 console.log("ОПЛАТА CryptoPayr ПІДТВЕРДЖЕНА!");
                 console.log("Transaction ID:", data.tid);
                 console.log("Metadata:", data.metadata);
-                const order = pendingOrders.get(data.metadata);
+                const result = await pool.query(
+    "SELECT * FROM pending_orders WHERE metadata = $1",
+    [data.metadata]
+);
+
+const order = result.rows[0];
 
 console.log("ЗНАЙДЕНО РЕЗЮМЕ:", !!order);
                 if (!order) {
@@ -122,6 +133,14 @@ console.log("ЗНАЙДЕНО РЕЗЮМЕ:", !!order);
 const pdfResult = await pdfResponse.json();
 
 console.log("РЕЗУЛЬТАТ СТВОРЕННЯ PDF:", pdfResult);
+                if (pdfResult.success) {
+    await pool.query(
+        "DELETE FROM pending_orders WHERE metadata = $1",
+        [data.metadata]
+    );
+
+    console.log("Замовлення видалено з PostgreSQL:", data.metadata);
+}
                 console.log("Сума:", data.amount, data.currency);
             }
 
@@ -314,7 +333,24 @@ console.log("ТЕСТОВИЙ PDF ЗБЕРЕЖЕНО");
     }
 });
 
-const pendingOrders = new Map();
+pool.query(`
+    CREATE TABLE IF NOT EXISTS pending_orders (
+        metadata TEXT PRIMARY KEY,
+        tid TEXT NOT NULL,
+        html TEXT NOT NULL,
+        css TEXT,
+        email TEXT NOT NULL,
+        amount NUMERIC NOT NULL,
+        currency TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT NOW()
+    )
+`)
+.then(() => {
+    console.log("Таблиця pending_orders готова");
+})
+.catch((error) => {
+    console.error("Помилка створення таблиці pending_orders:", error);
+});
 
 app.post("/create-cryptopayr-payment", async function(req, res) {
     try {
@@ -350,16 +386,29 @@ app.post("/create-cryptopayr-payment", async function(req, res) {
         const data = await response.json();
 
         console.log("CryptoPayr payment:", data);
-        if (data.data && data.data.tid) {
-    pendingOrders.set(metadata, {
-    tid: data.data.tid,
-    resume: resume,
-    html: html,
-    css: css,
-    email: resume.email,
-    amount: amount,
-    currency: currency
-});
+       if (data.data && data.data.tid) {
+    await pool.query(
+        `INSERT INTO pending_orders
+        (metadata, tid, html, css, email, amount, currency)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        ON CONFLICT (metadata)
+        DO UPDATE SET
+            tid = EXCLUDED.tid,
+            html = EXCLUDED.html,
+            css = EXCLUDED.css,
+            email = EXCLUDED.email,
+            amount = EXCLUDED.amount,
+            currency = EXCLUDED.currency`,
+        [
+            metadata,
+            data.data.tid,
+            html,
+            css,
+            resume.email,
+            amount,
+            currency
+        ]
+    );
 }
 
         if (!response.ok) {
