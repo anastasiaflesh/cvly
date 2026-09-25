@@ -355,9 +355,17 @@ pool.query(`
 app.post("/create-cryptopayr-payment", async function(req, res) {
     try {
         const crypto = require("crypto");
-        const { amount, currency, metadata, resume, html, css } = req.body;
+        const { packageType, metadata, resume, html, css } = req.body;
+        const packagePrices = {
+    start: 90,
+    pro: 190,
+    max: 290
+};
 
-        if (!amount || !currency) {
+const amount = packagePrices[packageType];
+const currency = "UAH";
+
+       if (!amount) {
             return res.status(400).json({
                 success: false,
                 message: "Не вказана сума або валюта"
