@@ -100,6 +100,15 @@ app.post(
             console.log("WEBHOOK CryptoPayr:", data);
 
             if (data.status === "COMPLETED") {
+                const paymentCheck = await pool.query(
+    "SELECT tid FROM processed_payments WHERE tid = $1",
+    [data.tid]
+);
+
+if (paymentCheck.rows.length > 0) {
+    console.log("CryptoPayr: платіж уже оброблений:", data.tid);
+    return res.status(200).send("OK");
+}
                 console.log("ОПЛАТА CryptoPayr ПІДТВЕРДЖЕНА!");
                 console.log("Transaction ID:", data.tid);
                 console.log("Metadata:", data.metadata);
@@ -115,6 +124,7 @@ console.log("ЗНАЙДЕНО РЕЗЮМЕ:", !!order);
     console.error("Не знайдено замовлення для:", data.metadata);
     return res.status(400).send("Order not found");
 }
+       
                 const pdfResponse = await fetch(
     "https://cvly.onrender.com/generate-pdf",
     {
@@ -141,6 +151,10 @@ console.log("РЕЗУЛЬТАТ СТВОРЕННЯ PDF:", pdfResult);
 
     console.log("Замовлення видалено з PostgreSQL:", data.metadata);
 }
+await pool.query(
+    "INSERT INTO processed_payments (tid) VALUES ($1)",
+    [data.tid]
+);
                 console.log("Сума:", data.amount, data.currency);
             }
 
@@ -350,6 +364,19 @@ pool.query(`
 })
 .catch((error) => {
     console.error("Помилка створення таблиці pending_orders:", error);
+});
+
+pool.query(`
+    CREATE TABLE IF NOT EXISTS processed_payments (
+        tid TEXT PRIMARY KEY,
+        processed_at TIMESTAMP DEFAULT NOW()
+    )
+`)
+.then(() => {
+    console.log("Таблиця processed_payments готова");
+})
+.catch((error) => {
+    console.error("Помилка створення таблиці processed_payments:", error);
 });
 
 app.post("/create-cryptopayr-payment", async function(req, res) {
