@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-  "postinstall": "npx puppeteer browsers install chrome"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +13,7 @@
   "dependencies": {
     "express": "^5.2.1",
     "nodemailer": "^10.0.0",
+    "pg": "^8.23.0",
     "puppeteer": "^25.10.0",
     "resend": "^6.26.0"
   },
