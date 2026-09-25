@@ -5796,7 +5796,7 @@ async function startPayment() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            amount: packagePrices[packageType],
+            packageType: packageType,
             currency: "UAH",
             metadata: "cvly-" + Date.now(),
             resume: answers,
